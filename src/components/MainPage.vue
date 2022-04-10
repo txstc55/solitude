@@ -1,6 +1,7 @@
 <template>
   <div class="h-screen grid">
     <h1 class="text-white mt-auto font-mono text-3xl countText">
+      You can only click this button every 10 seconds<br />
       This button has been clicked {{ totalClicks }} times
     </h1>
     <div class="relative group m-auto">
@@ -36,8 +37,10 @@
           duration-200
           shadow-lg
           group-active:bg-white group-active:border-slate-700
+          disabled:bg-gray-500
         "
         @click="this.updateClick"
+        :disabled="disableButton"
       >
         <span
           class="
@@ -102,6 +105,7 @@ export default {
       lastClickedTime: 0,
       clickDocSnap: null,
       clickDocRef: null,
+      disableButton: false,
     };
   },
   methods: {
@@ -128,6 +132,11 @@ export default {
           Count: increment(1),
           LastClickedTime: serverTimestamp(),
         });
+        this.disableButton = true;
+        let me = this;
+        setTimeout(() => {
+          me.disableButton = false;
+        }, 10000);
       }
     },
   },
@@ -163,11 +172,13 @@ export default {
 
 @-webkit-keyframes ani {
   from {
-    text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px #689dff, 0 0 1px #68aeff, 0 0 1px #6884ff, 0 0 1px #6877ff, 0 0 1px #5d4ac8;
+    text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px #689dff, 0 0 1px #68aeff,
+      0 0 1px #6884ff, 0 0 1px #6877ff, 0 0 1px #5d4ac8;
   }
-  
+
   to {
-    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px #f02117, 0 0 2px #fd746c, 0 0 2px #fde26c, 0 0 2px #d89f9c, 0 0 2px #e92fc1;
+    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px #f02117, 0 0 2px #fd746c,
+      0 0 2px #fde26c, 0 0 2px #d89f9c, 0 0 2px #e92fc1;
   }
 }
 
@@ -179,11 +190,13 @@ export default {
 
 @-webkit-keyframes ani2 {
   from {
-    text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px #f02117, 0 0 1px #fd746c, 0 0 1px #fde26c, 0 0 1px #d89f9c, 0 0 1px #e92fc1;
+    text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px #f02117, 0 0 1px #fd746c,
+      0 0 1px #fde26c, 0 0 1px #d89f9c, 0 0 1px #e92fc1;
   }
-  
+
   to {
-    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px #689dff, 0 0 2px #68aeff, 0 0 2px #6884ff, 0 0 2px #6877ff, 0 0 2px #5d4ac8;
+    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px #689dff, 0 0 2px #68aeff,
+      0 0 2px #6884ff, 0 0 2px #6877ff, 0 0 2px #5d4ac8;
   }
 }
 </style>
