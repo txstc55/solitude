@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen grid">
     <h1 class="text-white mt-auto font-mono text-3xl countText">
-      You can only click this button every 30 seconds<br />
+      You can only click this button every {{ wait }} seconds<br />
       This button has been clicked {{ totalClicks }} times
     </h1>
     <div class="relative group m-auto">
@@ -58,11 +58,14 @@
     <div class="mb-auto relative">
       <h1 class="text-white font-mono text-3xl timeText">
         This button is last clicked {{ lastClickedTimeSeconds }} seconds ago<br /><br />
-        Believe or not, hosting the database is quite expensive for concurrent users, so here's my
-        Venmo
+        Believe or not, hosting the database is quite expensive for concurrent
+        users, so here's my Venmo
       </h1>
       <br />
-      <img class="relative mx-auto h-48 rounded-sm w-48" src="../assets/venmo.jpeg" />
+      <img
+        class="relative mx-auto h-48 rounded-sm w-48"
+        src="../assets/venmo.jpeg"
+      />
     </div>
   </div>
 </template>
@@ -112,6 +115,7 @@ export default {
       clickDocSnap: null,
       clickDocRef: null,
       disableButton: false,
+      wait: 1,
     };
   },
   methods: {
@@ -124,6 +128,7 @@ export default {
     },
     getClickSpecs() {
       this.totalClicks = this.clickDocSnap.data().Count;
+      this.wait = 3 * Math.ceil(Math.pow(1.2, Math.log2(this.totalClicks)));
       this.lastClickedTime = new Date(
         this.clickDocSnap.data().LastClickedTime.seconds * 1000
       );
@@ -142,7 +147,7 @@ export default {
         let me = this;
         setTimeout(() => {
           me.disableButton = false;
-        }, 30000);
+        }, this.wait * 1000);
       }
     },
   },
@@ -158,6 +163,7 @@ export default {
           this.getClickSpecs();
         } else {
           this.totalClicks += 1;
+          this.wait = 3 * Math.ceil(Math.pow(1.2, Math.log2(this.totalClicks)));
           this.lastClickedTime = new Date();
           this.lastClickedTimeSeconds = 0;
         }
