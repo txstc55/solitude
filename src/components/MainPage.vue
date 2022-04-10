@@ -1,5 +1,8 @@
 <template>
-  <div class="grid gap-8 items-start justify-center h-screen">
+  <div class="h-screen grid">
+    <h1 class="text-white mt-auto font-mono text-3xl">
+      This button has been clicked {{ totalClicks }} times
+    </h1>
     <div class="relative group m-auto">
       <div
         class="
@@ -34,13 +37,14 @@
           shadow-lg
           group-active:bg-white group-active:border-slate-700
         "
+        @click="this.updateClick"
       >
         <span
           class="
             px-2
             text-white
             font-bold
-            text-xl
+            text-2xl
             font-sans
             group-active:text-black
           "
@@ -48,12 +52,106 @@
         >
       </button>
     </div>
+    <h1 class="text-white mb-auto relative font-mono text-3xl">
+      This button is last clicked {{ lastClickedTimeSeconds }} seconds ago
+    </h1>
   </div>
 </template>
 
 <script>
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  increment,
+  serverTimestamp,
+  onSnapshot,
+} from "firebase/firestore";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+// import {firebase} from "firebase"
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyB7xScHkbEIx5xazelCYMDL2VT6puJtef0",
+  authDomain: "solitude-b93da.firebaseapp.com",
+  databaseURL: "https://solitude-b93da-default-rtdb.firebaseio.com",
+  projectId: "solitude-b93da",
+  storageBucket: "solitude-b93da.appspot.com",
+  messagingSenderId: "1073417028194",
+  appId: "1:1073417028194:web:cf4fd0c24ff2388d35873b",
+  measurementId: "G-FJCLF10MGQ",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore();
 export default {
   name: "MainPage",
+  data() {
+    return {
+      totalClicks: "???",
+      lastClickedTimeSeconds: "???",
+      lastClickedTime: 0,
+      clickDocSnap: null,
+      clickDocRef: null,
+    };
+  },
+  methods: {
+    incrementTime() {
+      this.lastClickedTimeSeconds = Math.max(
+        0,
+        Math.floor((new Date().getTime() - this.lastClickedTime) / 1000)
+      );
+      setTimeout(this.incrementTime, 100);
+    },
+    getClickSpecs() {
+      this.totalClicks = this.clickDocSnap.data().Count;
+      this.lastClickedTime = new Date(
+        this.clickDocSnap.data().LastClickedTime.seconds * 1000
+      );
+      this.lastClickedTimeSeconds = Math.max(
+        0,
+        Math.floor((new Date().getTime() - this.lastClickedTime) / 1000)
+      );
+    },
+    updateClick() {
+      if (this.clickDocRef != null) {
+        updateDoc(this.clickDocRef, {
+          Count: increment(1),
+          LastClickedTime: serverTimestamp(),
+        });
+      }
+    },
+  },
+  async created() {
+    this.clickDocRef = doc(db, "Clicks", "0");
+    this.clickDocSnap = await getDoc(this.clickDocRef);
+    if (this.clickDocSnap.exists()) {
+      this.getClickSpecs();
+      this.incrementTime();
+      onSnapshot(doc(db, "Clicks", "0"), (doc) => {
+        if (!doc.metadata.hasPendingWrites) {
+          this.clickDocSnap = doc;
+          this.getClickSpecs();
+        } else {
+          this.totalClicks += 1;
+          this.lastClickedTime = new Date();
+          this.lastClickedTimeSeconds = 0;
+        }
+      });
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  },
 };
 </script>
 
