@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen grid">
-    <h1 class="text-white mt-auto font-mono text-3xl">
+    <h1 class="text-white mt-auto font-mono text-3xl countText">
       This button has been clicked {{ totalClicks }} times
     </h1>
     <div class="relative group m-auto">
@@ -52,7 +52,7 @@
         >
       </button>
     </div>
-    <h1 class="text-white mb-auto relative font-mono text-3xl">
+    <h1 class="text-white mb-auto relative font-mono text-3xl timeText">
       This button is last clicked {{ lastClickedTimeSeconds }} seconds ago
     </h1>
   </div>
@@ -155,3 +155,35 @@ export default {
 };
 </script>
 
+<style scoped>
+.countText {
+  color: #daeceb;
+  animation: ani 1000ms ease-in infinite alternate;
+}
+
+@-webkit-keyframes ani {
+  from {
+    text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px #689dff, 0 0 1px #68aeff, 0 0 1px #6884ff, 0 0 1px #6877ff, 0 0 1px #5d4ac8;
+  }
+  
+  to {
+    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px #f02117, 0 0 2px #fd746c, 0 0 2px #fde26c, 0 0 2px #d89f9c, 0 0 2px #e92fc1;
+  }
+}
+
+.timeText {
+  color: #daeceb;
+  text-align: center;
+  animation: ani2 1000ms ease-in infinite alternate;
+}
+
+@-webkit-keyframes ani2 {
+  from {
+    text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px #f02117, 0 0 1px #fd746c, 0 0 1px #fde26c, 0 0 1px #d89f9c, 0 0 1px #e92fc1;
+  }
+  
+  to {
+    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px #689dff, 0 0 2px #68aeff, 0 0 2px #6884ff, 0 0 2px #6877ff, 0 0 2px #5d4ac8;
+  }
+}
+</style>
