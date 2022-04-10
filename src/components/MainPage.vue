@@ -158,7 +158,7 @@ export default {
 <style scoped>
 .countText {
   color: #daeceb;
-  animation: ani 1000ms ease-in infinite alternate;
+  animation: ani 5000ms ease-in infinite alternate;
 }
 
 @-webkit-keyframes ani {
@@ -174,7 +174,7 @@ export default {
 .timeText {
   color: #daeceb;
   text-align: center;
-  animation: ani2 1000ms ease-in infinite alternate;
+  animation: ani2 7000ms ease-in infinite alternate;
 }
 
 @-webkit-keyframes ani2 {
