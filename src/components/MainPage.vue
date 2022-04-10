@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen grid">
     <h1 class="text-white mt-auto font-mono text-3xl countText">
-      You can only click this button every 10 seconds<br />
+      You can only click this button every 30 seconds<br />
       This button has been clicked {{ totalClicks }} times
     </h1>
     <div class="relative group m-auto">
@@ -142,7 +142,7 @@ export default {
         let me = this;
         setTimeout(() => {
           me.disableButton = false;
-        }, 10000);
+        }, 30000);
       }
     },
   },
