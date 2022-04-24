@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen grid">
-    <h1 class="text-white mt-auto font-mono text-3xl countText">
+    <h1 class="text-white mt-auto font-mono text-3xl countText text-center">
       You can only click this button every {{ wait }} seconds<br />
       This button has been clicked {{ totalClicks }} times
     </h1>
@@ -100,7 +100,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore();
 export default {
-  name: "MainPage",
+  name: "Button",
   data() {
     return {
       totalClicks: "???",

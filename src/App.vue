@@ -1,14 +1,32 @@
 <template>
-  <MainPage />
+  <v-app>
+    <div
+      id="nav"
+      class="
+        absolute
+        left-1/2
+        transform
+        -translate-x-1/2 -translate-y-1/2
+        text-white text-xl
+        bg-slate-800/40
+        content-center pt-20
+      "
+    >
+      <router-link class="p-5" to="/">Main</router-link>
+      <router-link class="p-5" to="/button">Button</router-link>
+      <router-link class="p-5" to="/abc">ABC</router-link>
+    </div>
+    <router-view />
+  </v-app>
 </template>
 
 <script>
-import MainPage from "./components/MainPage.vue";
+// import Button from "./views/Button.vue";
 
 export default {
   name: "App",
   components: {
-    MainPage,
+    // Button,
   },
 };
 </script>
@@ -18,19 +36,37 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  // text-align: center;
+  // color: #7c97b1;
   height: 100vh;
 }
 
 html {
   background: black;
-  height:100vh;
+  height: 100vh;
 }
 
-html, body {
-  margin:0;
-  padding:0;
-  height:100%;
+#nav {
+  // padding: 30px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  a {
+    font-weight: bold;
+    color: #52708e;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 </style>
