@@ -16,13 +16,5 @@ git init
 git add -A
 git commit -m 'deploy'
 
-# if you are deploying to https://<USERNAME>.github.io
-# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
-
-# if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:txstc55/solitude.git master:gh-pages
-cd ..
-rm -rf /var/www/html/vue/solitude/dist/
-mv dist /var/www/html/vue/solitude/dist
-sudo service nginx restart
+cd -
 
