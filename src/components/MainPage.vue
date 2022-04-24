@@ -58,7 +58,6 @@
     <div class="mb-auto relative">
       <h1 class="text-white font-mono text-3xl timeText">
         This button was last clicked {{ lastClickedTimeSeconds }} seconds ago<br /><br />
-        I received some donations for the project. I will begin moving it to digitalOcean.
       </h1>
       <br />
     </div>
