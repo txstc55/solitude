@@ -23,6 +23,6 @@ git commit -m 'deploy'
 git push -f git@github.com:txstc55/solitude.git master:gh-pages
 cd ..
 rm -rf /var/www/html/vue/solitude/dist/
-mv dist /var/www/html/vue/solitude/dist/
+mv dist /var/www/html/vue/solitude/dist
 sudo service nginx restart
 
