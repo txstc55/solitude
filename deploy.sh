@@ -15,15 +15,14 @@ cd dist
 git init
 git add -A
 git commit -m 'deploy'
-cd ../
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:txstc55/solitude.git master:gh-pages
-rm -rf /var/www/html/vue/solitude/dist
-mv dist /var/www/html/vue/solitude/
+cd ..
+rm -rf /var/www/html/vue/solitude/dist/
+mv dist /var/www/html/vue/solitude/dist
 sudo service nginx restart
 
-cd -
