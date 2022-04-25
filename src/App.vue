@@ -9,7 +9,8 @@
         -translate-x-1/2 -translate-y-1/2
         text-white text-xl
         bg-slate-800/20
-        content-center pt-20
+        content-center
+        pt-20
       "
     >
       <router-link class="p-5" to="/">Main</router-link>
@@ -55,10 +56,10 @@ html {
 
   a {
     font-weight: bold;
-    color: #52708e;
+    color: #4b81b7;
 
     &.router-link-exact-active {
-      color: #c9f5f8;
+      color: #f4feff;
     }
   }
 }
