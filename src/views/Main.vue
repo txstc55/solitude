@@ -72,7 +72,7 @@ export default {
   src: url("../fonts/HanyiSentyZHAO.ttf") format("truetype");
 }
 h2 {
-  font-family: "Tabulamore", "hanyisenty";
+  font-family: "Tabulamore", "hanyisenty", "Times New Roman", Times, serif;
 }
 
 h2::after {
