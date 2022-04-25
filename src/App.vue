@@ -8,7 +8,7 @@
         transform
         -translate-x-1/2 -translate-y-1/2
         text-white text-xl
-        bg-cyan-800/10
+        bg-gray-600/20
         content-center
         pt-20
       "
@@ -57,7 +57,7 @@ html {
 
   a {
     font-weight: bold;
-    color: #4b81b7;
+    color: #55677a;
 
     &.router-link-exact-active {
       color: #f4feff;
