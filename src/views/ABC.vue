@@ -101,6 +101,7 @@ export default {
   mounted() {
     // set the color
     this.textbox = document.getElementById("textbox");
+    this.textbox.focus();
     var txt = this.textbox.textContent;
     var newText = "";
     for (var i = 0, l = txt.length; i < l; i++) {
