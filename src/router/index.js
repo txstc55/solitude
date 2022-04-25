@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Button from '../views/Button.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Button
+    name: 'main',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
   },
   {
     path: '/button',

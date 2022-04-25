@@ -164,6 +164,15 @@ export default {
   0% {
     opacity: 0;
   }
+  50% {
+    opacity: 0;
+  }
+  51% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 #textbox::after {
   /*code commented for brevity*/
