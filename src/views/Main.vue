@@ -13,12 +13,12 @@ export default {
   name: "Main",
   data() {
     return {
-      text: "Accept loneliness",
+      text: "Accept Loneliness",
       texts: [
-        "Accept loneliness",
+        "Accept Loneliness",
         "接受孤独",
         "孤独を受け入れる",
-        "Embrace darkness",
+        "Embrace Darkness",
         "拥抱黑暗",
         "暗を抱きしめて",
       ],
