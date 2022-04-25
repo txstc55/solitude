@@ -84,6 +84,7 @@ export default {
 }
 h2 {
   font-family: "Tabulamore", "hanyisenty", "Times New Roman", Times, serif;
+  word-break: break-all;
 }
 
 /* h2::after {
