@@ -1,7 +1,16 @@
 <template>
   <div class="h-screen grid">
     <div class="relative m-auto">
-      <h2 class="font-mono text-9xl max-w-full mx-24 text-white">
+      <h2
+        class="
+          text-white
+          after:bg-white after:inline-block
+          sm:text-3xl sm:after:w-2 sm:after:h-8 sm:after:ml-2
+          md:text-6xl md:after:w-4 md:after:h-16 md:after:ml-2
+          lg:text-9xl lg:after:w-6 lg:after:h-24 lg:after:ml-4
+          xl:text-9xl xl:after:w-6 xl:after:h-24 xl:after:ml-4
+        "
+      >
         {{ text }}
       </h2>
     </div>
@@ -75,14 +84,14 @@ h2 {
   font-family: "Tabulamore", "hanyisenty", "Times New Roman", Times, serif;
 }
 
-h2::after {
+/* h2::after {
   content: "";
   width: 1.5rem;
   height: 5.5rem;
   background: white;
   display: inline-block;
   margin-left: 15px;
-}
+} */
 @keyframes cursor-blink {
   0% {
     opacity: 0;
