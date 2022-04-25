@@ -7,8 +7,7 @@
         left-1/2
         transform
         -translate-x-1/2 -translate-y-1/2
-        text-white text-xl
-        bg-slate-800/20
+        text-white text-xl bg-cyan-800/10
         content-center
         pt-20
       "
