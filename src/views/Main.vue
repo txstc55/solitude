@@ -78,12 +78,8 @@ export default {
   font-family: Tabulamore;
   src: url("../fonts/TabulamoreScript-Bold.otf") format("opentype");
 }
-@font-face {
-  font-family: Hanyisenty;
-  src: url("../fonts/HanyiSentyZHAO.ttf") format("truetype");
-}
 h2 {
-  font-family: "Tabulamore", "hanyisenty", "Times New Roman", Times, serif;
+  font-family: "Tabulamore", "Zhi Mang Xing", cursive, "Yuji Mai", serif;
   word-break: break-all;
 }
 
