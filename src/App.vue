@@ -7,7 +7,8 @@
         left-1/2
         transform
         -translate-x-1/2 -translate-y-1/2
-        text-white text-xl bg-cyan-800/10
+        text-white text-xl
+        bg-cyan-800/10
         content-center
         pt-20
       "
@@ -15,6 +16,7 @@
       <router-link class="p-5" to="/">Main</router-link>
       <router-link class="p-5" to="/button">Button</router-link>
       <router-link class="p-5" to="/abc">ABC</router-link>
+      <router-link class="p-5" to="/github" target="_blank">Me</router-link>
     </div>
     <router-view />
   </v-app>
