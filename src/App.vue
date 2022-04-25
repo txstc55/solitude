@@ -8,7 +8,7 @@
         transform
         -translate-x-1/2 -translate-y-1/2
         text-white text-xl
-        bg-slate-800/40
+        bg-slate-800/20
         content-center pt-20
       "
     >
@@ -58,7 +58,7 @@ html {
     color: #52708e;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #c9f5f8;
     }
   }
 }
