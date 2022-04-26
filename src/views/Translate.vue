@@ -88,23 +88,6 @@
             </div>
           </div>
         </div>
-        <div class="w-full mb-2 mt-1 group">
-          <button
-            class="
-              border border-white
-              w-full
-              rounded-md
-              py-2
-              group-active:bg-gray-100
-            "
-            @click="this.go2heroku()"
-          >
-            <span
-              class="px-2 text-white text-2xl font-sans group-active:text-black"
-              >GET ACCESS</span
-            >
-          </button>
-        </div>
         <div class="w-full mb-6 mt-1 group">
           <button
             class="
@@ -307,7 +290,7 @@ export default {
       } catch (e) {
         console.log(e);
         alert(
-          "Either you did not activate, or you have used up your limit.\nTry in another hour!"
+          "There are probably too many requests.\nPlease come back later."
         );
         this.translating = false;
       }
