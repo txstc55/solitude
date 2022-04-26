@@ -107,11 +107,27 @@ export default {
         audio.play();
       }
     },
+    pressFunction(e) {
+      const self = this;
+      var keynum;
+      if (window.event) {
+        // IE
+        keynum = e.keyCode;
+      } else if (e.which) {
+        // Netscape/Firefox/Opera
+        keynum = e.which;
+      }
+      var char = String.fromCharCode(keynum);
+      self.textbox.innerHTML += char.fontcolor(self.charToColor(char));
+      self.playNote(char);
+      setTimeout(() => {
+        self.removeFirst();
+      }, 3000);
+    },
   },
   mounted() {
-    // set the color
     this.textbox = document.getElementById("textbox");
-    var txt = this.textbox.textContent;
+    var txt = "Hello";
     var newText = "";
     for (var i = 0, l = txt.length; i < l; i++) {
       var char = txt.charAt(i);
@@ -135,22 +151,13 @@ export default {
       }, 200);
     }, 3000);
     const self = this;
-    window.addEventListener("keypress", function (e) {
-      var keynum;
-      if (window.event) {
-        // IE
-        keynum = e.keyCode;
-      } else if (e.which) {
-        // Netscape/Firefox/Opera
-        keynum = e.which;
-      }
-      var char = String.fromCharCode(keynum);
-      self.textbox.innerHTML += char.fontcolor(self.charToColor(char));
-      self.playNote(char);
-      setTimeout(() => {
-        self.removeFirst();
-      }, 3000);
-    });
+    window.addEventListener("keypress", self.pressFunction, true);
+  },
+  beforeRouteEnter() {
+    // set the color
+  },
+  beforeRouteLeave() {
+    window.removeEventListener("keypress", this.pressFunction, true);
   },
 };
 </script>
