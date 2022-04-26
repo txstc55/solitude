@@ -243,31 +243,39 @@ export default {
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
-        corsProxy: "https://thingproxy.freeboard.io/fetch/",
+        corsProxy: "https://cors-proxy.htmldriven.com/?url=",
       });
       this.translator
         .translate("Hello world", "en", "de")
         .then((translate) =>
-          console.log("Translate result using thingyproxy", translate)
+          console.log("Translate result using htmldriven", translate)
         );
       this.translator = new GoogleTranslator({
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
-        corsProxy: "https://cors-anywhere.herokuapp.com/",
+        corsProxy: "https://thingproxy.freeboard.io/fetch/",
       });
       this.translator
         .translate("Hello world", "en", "de")
-        .then((translate) => console.log("corsanywhere", translate));
+        .then((translate) => console.log("thingproxy", translate));
       this.translator = new GoogleTranslator({
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
-        corsProxy: "https://alloworigin.com/get?url=",
+        corsProxy: "https://api.allorigins.win/get?",
       });
       this.translator
         .translate("Hello world", "en", "de")
-        .then((translate) => console.log("alloworigin", translate));
+        .then((translate) => console.log("allorigins", translate));
+      this.translator = new GoogleTranslator({
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      this.translator
+        .translate("Hello world", "en", "de")
+        .then((translate) => console.log("nothing", translate));
     },
     async translate(from, to) {
       var result = await this.translator.translate(this.message, from, to);
