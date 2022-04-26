@@ -240,21 +240,25 @@ export default {
       //     .then((translate) => console.log("Translate result", translate));
       // }
       this.translator = new GoogleTranslator({
-        corsProxy: "https://api.allorigins.win/raw?url=",
+        corsProxy: "https://thingproxy.freeboard.io/fetch/",
       });
       this.translator
         .translate("Hello world", "en", "de")
         .then((translate) =>
-          console.log("Translate result using allorigins", translate)
+          console.log("Translate result using thingyproxy", translate)
         );
       this.translator = new GoogleTranslator({
-        corsProxy: "https://cors-proxy.htmldriven.com/?url=",
+        corsProxy: "https://cors-anywhere.herokuapp.com/",
       });
       this.translator
         .translate("Hello world", "en", "de")
-        .then((translate) =>
-          console.log("Translate result using htmldriven", translate)
-        );
+        .then((translate) => console.log("corsanywhere", translate));
+      this.translator = new GoogleTranslator({
+        corsProxy: "http://alloworigin.com/get?url=",
+      });
+      this.translator
+        .translate("Hello world", "en", "de")
+        .then((translate) => console.log("alloworigin", translate));
     },
     async translate(from, to) {
       var result = await this.translator.translate(this.message, from, to);
