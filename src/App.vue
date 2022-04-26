@@ -8,7 +8,7 @@
         transform
         -translate-x-1/2 -translate-y-1/2
         text-white text-xl
-        bg-gray-600/20
+        bg-gray-600/10
         content-center
         pt-20
       "
