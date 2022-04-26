@@ -317,7 +317,7 @@ export default {
     this.language_names = Object.keys(this.languages);
     // Use some CORS proxy service address as prefix
     this.translator = new GoogleTranslator({
-      corsProxy: "https://cors-anywhere.herokuapp.com/",
+      corsProxy: "https://calm-brushlands-73166.herokuapp.com/",
     });
   },
 };
