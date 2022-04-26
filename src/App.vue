@@ -18,7 +18,11 @@
       <router-link class="p-5" to="/abc">ABC</router-link>
       <router-link class="p-5" to="/github" target="_blank">Me</router-link>
     </div>
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <transition name="scale" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </v-app>
 </template>
 
@@ -70,5 +74,16 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
+}
+
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
 }
 </style>
