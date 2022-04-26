@@ -117,10 +117,6 @@ var axios = require("axios");
 var config = {
   method: "get",
   url: "https://translate.google.com/translate_a/single?client=t&sl=en&tl=de&tk=494717.88986&dt=t&q=This%20world%20sucks",
-  headers: {
-    Cookie:
-      "NID=511=dn3UmPPiXmzPcnIgIY7_WuncN0pk7_c5gUce3L5aAu0VrpdwMyaAfJAw6G1Ngygw9MLco_9kdYzmlX8JN8N485T5uTflworZrX3hKZPkwLi_VjoIL0U4P6x8eWbrcB-DOhmivGaoWkdC3rXMogToyX2tmbjS_ORQL82o2sq8aKlMwypABF7u5fga00Fiy-VOth8",
-  },
 };
 
 axios(config)
