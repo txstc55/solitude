@@ -2,19 +2,12 @@
 
 # abort on errors
 set -e
-
+git pull
+npm install
 # build
 npm run build
 
-# navigate into the build output directory
-cd dist
-
-# if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
-
-git init
-git add -A
-git commit -m 'deploy'
-
-cd -
+rm -rf /var/www/html/vue/solitude/dist/
+mv dist /var/www/html/vue/solitude/dist
+sudo service nginx restart
 
