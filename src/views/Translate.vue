@@ -112,20 +112,6 @@
 
 <script>
 import { GoogleTranslator } from "@translate-tools/core/translators/GoogleTranslator";
-var axios = require("axios");
-
-var config = {
-  method: "get",
-  url: "https://translate.google.com/translate_a/single?client=t&sl=en&tl=de&tk=494717.88986&dt=t&q=This%20world%20sucks",
-};
-
-axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
 
 // translator
 //   .translate("Hello world", "en", "de")
@@ -246,104 +232,6 @@ export default {
     };
   },
   methods: {
-    shiftLeftOrRightThenSumOrXor(num, opArray) {
-      return opArray.reduce((acc, opString) => {
-        var op1 = opString[1]; //	'+' | '-' ~ SUM | XOR
-        var op2 = opString[0]; //	'+' | '^' ~ SLL | SRL
-        var xd = opString[2]; //	[0-9a-f]
-
-        this.assert(op1 === "+" || op1 === "-", "Invalid OP: " + op1);
-        this.assert(op2 === "+" || op2 === "^", "Invalid OP: " + op2);
-        this.assert(
-          ("0" <= xd && xd <= "9") || ("a" <= xd && xd <= "f"),
-          "Not an 0x? value: " + xd
-        );
-
-        var shiftAmount = this.hexCharAsNumber(xd);
-        var mask = op1 == "+" ? acc >>> shiftAmount : acc << shiftAmount;
-        return op2 == "+" ? (acc + mask) & 0xffffffff : acc ^ mask;
-      }, num);
-    },
-
-    assert(cond, err) {
-      if (!cond) {
-        throw Error(err);
-      }
-    },
-
-    hexCharAsNumber(xd) {
-      return xd >= "a" ? xd.charCodeAt(0) - 87 : Number(xd);
-    },
-
-    transformQuery(query) {
-      for (var e = [], f = 0, g = 0; g < query.length; g++) {
-        var l = query.charCodeAt(g);
-        if (l < 128) {
-          e[f++] = l; //	0{l[6-0]}
-        } else if (l < 2048) {
-          e[f++] = (l >> 6) | 0xc0; //	110{l[10-6]}
-          e[f++] = (l & 0x3f) | 0x80; //	10{l[5-0]}
-        } else if (
-          0xd800 == (l & 0xfc00) &&
-          g + 1 < query.length &&
-          0xdc00 == (query.charCodeAt(g + 1) & 0xfc00)
-        ) {
-          //	that's pretty rare... (avoid ovf?)
-          l =
-            (1 << 16) + ((l & 0x03ff) << 10) + (query.charCodeAt(++g) & 0x03ff);
-          e[f++] = (l >> 18) | 0xf0; //	111100{l[9-8*]}
-          e[f++] = ((l >> 12) & 0x3f) | 0x80; //	10{l[7*-2]}
-          e[f++] = (l & 0x3f) | 0x80; //	10{(l+1)[5-0]}
-        } else {
-          e[f++] = (l >> 12) | 0xe0; //	1110{l[15-12]}
-          e[f++] = ((l >> 6) & 0x3f) | 0x80; //	10{l[11-6]}
-          e[f++] = (l & 0x3f) | 0x80; //	10{l[5-0]}
-        }
-      }
-      return e;
-    },
-
-    normalizeHash(encondindRound2) {
-      if (encondindRound2 < 0) {
-        encondindRound2 = (encondindRound2 & 0x7fffffff) + 0x80000000;
-      }
-      return encondindRound2 % 1e6;
-    },
-
-    /*
-/	EXAMPLE:
-/
-/	INPUT: query: 'hola', windowTkk: '409837.2120040981'
-/	OUTPUT: '70528.480109'
-/
-*/
-    calcHash(query, windowTkk) {
-      //	STEP 1: spread the the query char codes on a byte-array, 1-3 bytes per char
-      var bytesArray = this.transformQuery(query);
-
-      //	STEP 2: starting with TKK index, add the array from last step one-by-one, and do 2 rounds of shift+add/xor
-      var d = windowTkk.split(".");
-      var tkkIndex = Number(d[0]) || 0;
-      var tkkKey = Number(d[1]) || 0;
-
-      var encondingRound1 = bytesArray.reduce((acc, current) => {
-        acc += current;
-        return this.shiftLeftOrRightThenSumOrXor(acc, ["+-a", "^+6"]);
-      }, tkkIndex);
-
-      //	STEP 3: apply 3 rounds of shift+add/xor and XOR with they TKK key
-      var encondingRound2 =
-        this.shiftLeftOrRightThenSumOrXor(encondingRound1, [
-          "+-3",
-          "^+b",
-          "+-f",
-        ]) ^ tkkKey;
-
-      //	STEP 4: Normalize to 2s complement & format
-      var normalizedResult = this.normalizeHash(encondingRound2);
-
-      return normalizedResult.toString() + "." + (normalizedResult ^ tkkIndex);
-    },
     async chaosTranslate() {
       console.log(this.calcHash("日你妈", "448487.932609646"));
       // if (this.message != "") {

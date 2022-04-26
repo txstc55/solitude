@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@translate-tools/core": "^0.2.8",
-    "axios": "^0.27.1",
     "core-js": "^3.8.3",
     "firebase": "^9.6.10",
     "firebase-admin": "^10.0.2",
