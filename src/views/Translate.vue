@@ -240,6 +240,9 @@ export default {
       //     .then((translate) => console.log("Translate result", translate));
       // }
       this.translator = new GoogleTranslator({
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
         corsProxy: "https://thingproxy.freeboard.io/fetch/",
       });
       this.translator
@@ -248,12 +251,18 @@ export default {
           console.log("Translate result using thingyproxy", translate)
         );
       this.translator = new GoogleTranslator({
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
         corsProxy: "https://cors-anywhere.herokuapp.com/",
       });
       this.translator
         .translate("Hello world", "en", "de")
         .then((translate) => console.log("corsanywhere", translate));
       this.translator = new GoogleTranslator({
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
         corsProxy: "https://alloworigin.com/get?url=",
       });
       this.translator
