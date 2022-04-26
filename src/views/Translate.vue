@@ -25,9 +25,10 @@
           h-60
         "
         placeholder="Your message"
+        v-model="message"
       ></textarea>
       <div class="flex flex-wrap mb-2 mt-3">
-        <div class="w-full mb-6 md:mb-0">
+        <div class="w-full mb-6">
           <label
             class="
               block
@@ -35,11 +36,11 @@
               tracking-wide
               text-white text-sm
               font-bold
-              mb-2
+              mb-1
             "
             for="grid-state"
           >
-            language
+            input language
           </label>
           <div class="relative">
             <select
@@ -59,7 +60,7 @@
               "
               v-model="language_selected"
             >
-              <option v-for="item in languages" :value="item">
+              <option v-for="(_, item) in languages" :value="item">
                 {{ item }}
               </option>
             </select>
@@ -87,7 +88,7 @@
             </div>
           </div>
         </div>
-        <div class="w-full mb-6 mt-3 group">
+        <div class="w-full mb-6 mt-1 group">
           <button
             class="
               border border-white
@@ -96,6 +97,7 @@
               py-2
               group-active:bg-gray-100
             "
+            @click="this.chaosTranslate()"
           >
             <span
               class="px-2 text-white text-2xl font-sans group-active:text-black"
@@ -109,12 +111,7 @@
 </template>
 
 <script>
-// import { GoogleTranslator } from "@translate-tools/core/translators/GoogleTranslator";
-
-// // Use some CORS proxy service address as prefix
-// const translator = new GoogleTranslator({
-//   corsProxy: "https://cors-anywhere.herokuapp.com/",
-// });
+import { GoogleTranslator } from "@translate-tools/core/translators/GoogleTranslator";
 
 // translator
 //   .translate("Hello world", "en", "de")
@@ -123,117 +120,137 @@ export default {
   name: "Translate",
   data() {
     return {
+      translator: null,
+      message: "",
       language_selected: "English",
       languages: {
-        af: "Afrikaans",
-        sq: "Albanian",
-        am: "Amharic",
-        ar: "Arabic",
-        hy: "Armenian",
-        az: "Azerbaijani",
-        eu: "Basque",
-        be: "Belarusian",
-        bn: "Bengali",
-        bs: "Bosnian",
-        bg: "Bulgarian",
-        ca: "Catalan",
-        ceb: "Cebuano",
-        ny: "Chichewa",
-        "zh-cn": "Chinese Simplified",
-        "zh-tw": "Chinese Traditional",
-        co: "Corsican",
-        hr: "Croatian",
-        cs: "Czech",
-        da: "Danish",
-        nl: "Dutch",
-        en: "English",
-        eo: "Esperanto",
-        et: "Estonian",
-        tl: "Filipino",
-        fi: "Finnish",
-        fr: "French",
-        fy: "Frisian",
-        gl: "Galician",
-        ka: "Georgian",
-        de: "German",
-        el: "Greek",
-        gu: "Gujarati",
-        ht: "Haitian Creole",
-        ha: "Hausa",
-        haw: "Hawaiian",
-        iw: "Hebrew",
-        hi: "Hindi",
-        hmn: "Hmong",
-        hu: "Hungarian",
-        is: "Icelandic",
-        ig: "Igbo",
-        id: "Indonesian",
-        ga: "Irish",
-        it: "Italian",
-        ja: "Japanese",
-        jw: "Javanese",
-        kn: "Kannada",
-        kk: "Kazakh",
-        km: "Khmer",
-        ko: "Korean",
-        ku: "Kurdish (Kurmanji)",
-        ky: "Kyrgyz",
-        lo: "Lao",
-        la: "Latin",
-        lv: "Latvian",
-        lt: "Lithuanian",
-        lb: "Luxembourgish",
-        mk: "Macedonian",
-        mg: "Malagasy",
-        ms: "Malay",
-        ml: "Malayalam",
-        mt: "Maltese",
-        mi: "Maori",
-        mr: "Marathi",
-        mn: "Mongolian",
-        my: "Myanmar (Burmese)",
-        ne: "Nepali",
-        no: "Norwegian",
-        ps: "Pashto",
-        fa: "Persian",
-        pl: "Polish",
-        pt: "Portuguese",
-        ma: "Punjabi",
-        ro: "Romanian",
-        ru: "Russian",
-        sm: "Samoan",
-        gd: "Scots Gaelic",
-        sr: "Serbian",
-        st: "Sesotho",
-        sn: "Shona",
-        sd: "Sindhi",
-        si: "Sinhala",
-        sk: "Slovak",
-        sl: "Slovenian",
-        so: "Somali",
-        es: "Spanish",
-        su: "Sundanese",
-        sw: "Swahili",
-        sv: "Swedish",
-        tg: "Tajik",
-        ta: "Tamil",
-        te: "Telugu",
-        th: "Thai",
-        tr: "Turkish",
-        uk: "Ukrainian",
-        ur: "Urdu",
-        uz: "Uzbek",
-        vi: "Vietnamese",
-        cy: "Welsh",
-        xh: "Xhosa",
-        yi: "Yiddish",
-        yo: "Yoruba",
-        zu: "Zulu",
+        Afrikaans: "af",
+        Albanian: "sq",
+        Amharic: "am",
+        Arabic: "ar",
+        Armenian: "hy",
+        Azerbaijani: "az",
+        Basque: "eu",
+        Belarusian: "be",
+        Bengali: "bn",
+        Bosnian: "bs",
+        Bulgarian: "bg",
+        Catalan: "ca",
+        Cebuano: "ceb",
+        Chichewa: "ny",
+        "Chinese Simplified": "zh-cn",
+        "Chinese Traditional": "zh-tw",
+        Corsican: "co",
+        Croatian: "hr",
+        Czech: "cs",
+        Danish: "da",
+        Dutch: "nl",
+        English: "en",
+        Esperanto: "eo",
+        Estonian: "et",
+        Filipino: "tl",
+        Finnish: "fi",
+        French: "fr",
+        Frisian: "fy",
+        Galician: "gl",
+        Georgian: "ka",
+        German: "de",
+        Greek: "el",
+        Gujarati: "gu",
+        "Haitian Creole": "ht",
+        Hausa: "ha",
+        Hawaiian: "haw",
+        Hebrew: "iw",
+        Hindi: "hi",
+        Hmong: "hmn",
+        Hungarian: "hu",
+        Icelandic: "is",
+        Igbo: "ig",
+        Indonesian: "id",
+        Irish: "ga",
+        Italian: "it",
+        Japanese: "ja",
+        Javanese: "jw",
+        Kannada: "kn",
+        Kazakh: "kk",
+        Khmer: "km",
+        Korean: "ko",
+        "Kurdish (Kurmanji)": "ku",
+        Kyrgyz: "ky",
+        Lao: "lo",
+        Latin: "la",
+        Latvian: "lv",
+        Lithuanian: "lt",
+        Luxembourgish: "lb",
+        Macedonian: "mk",
+        Malagasy: "mg",
+        Malay: "ms",
+        Malayalam: "ml",
+        Maltese: "mt",
+        Maori: "mi",
+        Marathi: "mr",
+        Mongolian: "mn",
+        "Myanmar (Burmese)": "my",
+        Nepali: "ne",
+        Norwegian: "no",
+        Pashto: "ps",
+        Persian: "fa",
+        Polish: "pl",
+        Portuguese: "pt",
+        Punjabi: "ma",
+        Romanian: "ro",
+        Russian: "ru",
+        Samoan: "sm",
+        "Scots Gaelic": "gd",
+        Serbian: "sr",
+        Sesotho: "st",
+        Shona: "sn",
+        Sindhi: "sd",
+        Sinhala: "si",
+        Slovak: "sk",
+        Slovenian: "sl",
+        Somali: "so",
+        Spanish: "es",
+        Sundanese: "su",
+        Swahili: "sw",
+        Swedish: "sv",
+        Tajik: "tg",
+        Tamil: "ta",
+        Telugu: "te",
+        Thai: "th",
+        Turkish: "tr",
+        Ukrainian: "uk",
+        Urdu: "ur",
+        Uzbek: "uz",
+        Vietnamese: "vi",
+        Welsh: "cy",
+        Xhosa: "xh",
+        Yiddish: "yi",
+        Yoruba: "yo",
+        Zulu: "zu",
       },
     };
   },
-  methods: {},
-  created() {},
+  methods: {
+    async chaosTranslate() {
+      if (this.message != "") {
+        console.log(this.message, this.languages[this.language_selected]);
+        this.translator
+          .translate("Hello world", "en", "de")
+          .then((translate) => console.log("Translate result", translate));
+      }
+    },
+    async translate(from, to) {
+      var result = await this.translator.translate(this.message, from, to);
+      console.log(result);
+    },
+  },
+  created() {
+    // Use some CORS proxy service address as prefix
+    this.translator = new GoogleTranslator({
+      corsProxy: "ttps://api.allorigins.win/raw?url=",
+    });
+  },
 };
 </script>
 
