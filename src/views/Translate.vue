@@ -27,7 +27,7 @@
         placeholder="Your message"
         v-model="message"
       ></textarea>
-      <div class="flex flex-wrap mb-2 mt-3">
+      <div class="flex flex-wrap mb-2 mt-3 w-96">
         <div class="w-full mb-6">
           <label
             class="
@@ -88,7 +88,7 @@
             </div>
           </div>
         </div>
-        <div class="w-full mb-6 mt-1 group">
+        <div class="w-full mb-2 mt-1 group">
           <button
             class="
               border border-white
@@ -97,10 +97,36 @@
               py-2
               group-active:bg-gray-100
             "
-            @click="this.chaosTranslate()"
+            @click="this.go2heroku()"
           >
             <span
               class="px-2 text-white text-2xl font-sans group-active:text-black"
+              >GET ACCESS</span
+            >
+          </button>
+        </div>
+        <div class="w-full mb-6 mt-1 group">
+          <button
+            class="
+              border border-white
+              w-full
+              rounded-md
+              py-2
+              group-active:bg-gray-100
+              disabled:border-gray-500
+            "
+            @click="this.chaosTranslate()"
+            :disabled="this.translating"
+          >
+            <span
+              class="
+                px-2
+                text-white text-2xl
+                font-sans
+                group-active:text-black
+                disabled:text-gray-500
+              "
+              :disabled="this.translating"
               >TRANSLATE</span
             >
           </button>
@@ -112,20 +138,6 @@
 
 <script>
 import { GoogleTranslator } from "@translate-tools/core/translators/GoogleTranslator";
-var axios = require("axios");
-
-var config = {
-  method: "get",
-  url: "https://translate.google.com/translate_a/single?client=t&sl=en&tl=de&tk=494717.88986&dt=t&q=This%20world%20sucks",
-};
-
-axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
 
 // translator
 //   .translate("Hello world", "en", "de")
@@ -137,6 +149,7 @@ export default {
       translator: null,
       message: "",
       language_selected: "English",
+      translating: false,
       languages: {
         Afrikaans: "af",
         Albanian: "sq",
@@ -243,126 +256,69 @@ export default {
         Yoruba: "yo",
         Zulu: "zu",
       },
+      language_names: null,
     };
   },
   methods: {
-    shiftLeftOrRightThenSumOrXor(num, opArray) {
-      return opArray.reduce((acc, opString) => {
-        var op1 = opString[1]; //	'+' | '-' ~ SUM | XOR
-        var op2 = opString[0]; //	'+' | '^' ~ SLL | SRL
-        var xd = opString[2]; //	[0-9a-f]
-
-        this.assert(op1 === "+" || op1 === "-", "Invalid OP: " + op1);
-        this.assert(op2 === "+" || op2 === "^", "Invalid OP: " + op2);
-        this.assert(
-          ("0" <= xd && xd <= "9") || ("a" <= xd && xd <= "f"),
-          "Not an 0x? value: " + xd
-        );
-
-        var shiftAmount = this.hexCharAsNumber(xd);
-        var mask = op1 == "+" ? acc >>> shiftAmount : acc << shiftAmount;
-        return op2 == "+" ? (acc + mask) & 0xffffffff : acc ^ mask;
-      }, num);
-    },
-
-    assert(cond, err) {
-      if (!cond) {
-        throw Error(err);
-      }
-    },
-
-    hexCharAsNumber(xd) {
-      return xd >= "a" ? xd.charCodeAt(0) - 87 : Number(xd);
-    },
-
-    transformQuery(query) {
-      for (var e = [], f = 0, g = 0; g < query.length; g++) {
-        var l = query.charCodeAt(g);
-        if (l < 128) {
-          e[f++] = l; //	0{l[6-0]}
-        } else if (l < 2048) {
-          e[f++] = (l >> 6) | 0xc0; //	110{l[10-6]}
-          e[f++] = (l & 0x3f) | 0x80; //	10{l[5-0]}
-        } else if (
-          0xd800 == (l & 0xfc00) &&
-          g + 1 < query.length &&
-          0xdc00 == (query.charCodeAt(g + 1) & 0xfc00)
-        ) {
-          //	that's pretty rare... (avoid ovf?)
-          l =
-            (1 << 16) + ((l & 0x03ff) << 10) + (query.charCodeAt(++g) & 0x03ff);
-          e[f++] = (l >> 18) | 0xf0; //	111100{l[9-8*]}
-          e[f++] = ((l >> 12) & 0x3f) | 0x80; //	10{l[7*-2]}
-          e[f++] = (l & 0x3f) | 0x80; //	10{(l+1)[5-0]}
-        } else {
-          e[f++] = (l >> 12) | 0xe0; //	1110{l[15-12]}
-          e[f++] = ((l >> 6) & 0x3f) | 0x80; //	10{l[11-6]}
-          e[f++] = (l & 0x3f) | 0x80; //	10{l[5-0]}
-        }
-      }
-      return e;
-    },
-
-    normalizeHash(encondindRound2) {
-      if (encondindRound2 < 0) {
-        encondindRound2 = (encondindRound2 & 0x7fffffff) + 0x80000000;
-      }
-      return encondindRound2 % 1e6;
-    },
-
-    /*
-/	EXAMPLE:
-/
-/	INPUT: query: 'hola', windowTkk: '409837.2120040981'
-/	OUTPUT: '70528.480109'
-/
-*/
-    calcHash(query, windowTkk) {
-      //	STEP 1: spread the the query char codes on a byte-array, 1-3 bytes per char
-      var bytesArray = this.transformQuery(query);
-
-      //	STEP 2: starting with TKK index, add the array from last step one-by-one, and do 2 rounds of shift+add/xor
-      var d = windowTkk.split(".");
-      var tkkIndex = Number(d[0]) || 0;
-      var tkkKey = Number(d[1]) || 0;
-
-      var encondingRound1 = bytesArray.reduce((acc, current) => {
-        acc += current;
-        return this.shiftLeftOrRightThenSumOrXor(acc, ["+-a", "^+6"]);
-      }, tkkIndex);
-
-      //	STEP 3: apply 3 rounds of shift+add/xor and XOR with they TKK key
-      var encondingRound2 =
-        this.shiftLeftOrRightThenSumOrXor(encondingRound1, [
-          "+-3",
-          "^+b",
-          "+-f",
-        ]) ^ tkkKey;
-
-      //	STEP 4: Normalize to 2s complement & format
-      var normalizedResult = this.normalizeHash(encondingRound2);
-
-      return normalizedResult.toString() + "." + (normalizedResult ^ tkkIndex);
+    go2heroku() {
+      window.open(
+        "https://cors-anywhere.herokuapp.com/",
+        "_blank" // <- This is what makes it open in a new window.
+      );
     },
     async chaosTranslate() {
-      console.log(this.calcHash("日你妈", "448487.932609646"));
-      // if (this.message != "") {
-      //   console.log(this.message, this.languages[this.language_selected]);
-      //   this.translator
-      //     .translate("Hello world", "en", "de")
-      //     .then((translate) => console.log("Translate result", translate));
-      // }
+      if (this.message != "") {
+        this.translating = true;
+        var rand_lang_codes = [];
+        var rand_lang = [];
+        const first_lang = this.languages[this.language_selected];
+        rand_lang_codes.push(first_lang);
+        rand_lang.push(this.language_selected);
+        while (rand_lang_codes.length < 10) {
+          var rand_index = Math.floor(
+            Math.random() * this.language_names.length
+          );
+          if (
+            this.languages[this.language_names[rand_index]] !=
+            rand_lang_codes[rand_lang_codes.length - 1]
+          ) {
+            rand_lang.push(this.language_names[rand_index]);
+            rand_lang_codes.push(
+              this.languages[this.language_names[rand_index]]
+            );
+          }
+        }
+        rand_lang_codes.push(this.languages[this.language_selected]);
+        rand_lang.push(this.language_selected);
+        for (var i = 1; i < rand_lang_codes.length && this.translating; i++) {
+          this.message = await this.translate(
+            rand_lang_codes[i - 1],
+            rand_lang_codes[i]
+          );
+          this.language_selected = rand_lang[i];
+        }
+        this.translating = false;
+      }
     },
     async translate(from, to) {
-      var result = await this.translator.translate(this.message, from, to);
-      console.log(result);
+      try {
+        var result = await this.translator.translate(this.message, from, to);
+        return result;
+      } catch (e) {
+        console.log(e);
+        alert(
+          "Either you did not activate, or you have used up your limit.\nTry in another hour!"
+        );
+        this.translating = false;
+      }
     },
   },
   created() {
+    this.language_names = Object.keys(this.languages);
     // Use some CORS proxy service address as prefix
-    // this.translator = new GoogleTranslator({
-    //   corsProxy: "ttps://api.allorigins.win/raw?url=",
-    // });
+    this.translator = new GoogleTranslator({
+      corsProxy: "https://loneliness.one/api/cors/",
+    });
   },
 };
 </script>

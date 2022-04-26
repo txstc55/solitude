@@ -24,7 +24,7 @@ export default {
   name: "Main",
   data() {
     return {
-      text: "Accept Loneliness",
+      text: "",
       texts: [
         "Accept Loneliness",
         "接受孤独",
@@ -67,7 +67,7 @@ export default {
     },
   },
   created() {
-    this.deleteFirst();
+    this.addLetter();
   },
 };
 </script>
