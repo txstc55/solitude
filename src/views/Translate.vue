@@ -27,7 +27,7 @@
         placeholder="Your message"
         v-model="message"
       ></textarea>
-      <div class="flex flex-wrap mb-2 mt-3">
+      <div class="flex flex-wrap mb-2 mt-3 w-96">
         <div class="w-full mb-6">
           <label
             class="
@@ -88,7 +88,7 @@
             </div>
           </div>
         </div>
-        <div class="w-full mb-6 mt-1 group">
+        <div class="w-full mb-2 mt-1 group">
           <button
             class="
               border border-white
@@ -97,10 +97,36 @@
               py-2
               group-active:bg-gray-100
             "
-            @click="this.chaosTranslate()"
+            @click="this.go2heroku()"
           >
             <span
               class="px-2 text-white text-2xl font-sans group-active:text-black"
+              >GET ACCESS</span
+            >
+          </button>
+        </div>
+        <div class="w-full mb-6 mt-1 group">
+          <button
+            class="
+              border border-white
+              w-full
+              rounded-md
+              py-2
+              group-active:bg-gray-100
+              disabled:border-gray-500
+            "
+            @click="this.chaosTranslate()"
+            :disabled="this.translating"
+          >
+            <span
+              class="
+                px-2
+                text-white text-2xl
+                font-sans
+                group-active:text-black
+                disabled:text-gray-500
+              "
+              :disabled="this.translating"
               >TRANSLATE</span
             >
           </button>
@@ -123,6 +149,7 @@ export default {
       translator: null,
       message: "",
       language_selected: "English",
+      translating: false,
       languages: {
         Afrikaans: "af",
         Albanian: "sq",
@@ -229,29 +256,69 @@ export default {
         Yoruba: "yo",
         Zulu: "zu",
       },
+      language_names: null,
     };
   },
   methods: {
+    go2heroku() {
+      window.open(
+        "https://cors-anywhere.herokuapp.com/",
+        "_blank" // <- This is what makes it open in a new window.
+      );
+    },
     async chaosTranslate() {
-      console.log(this.calcHash("日你妈", "448487.932609646"));
-      // if (this.message != "") {
-      //   console.log(this.message, this.languages[this.language_selected]);
-      //   this.translator
-      //     .translate("Hello world", "en", "de")
-      //     .then((translate) => console.log("Translate result", translate));
-      // }
-
+      if (this.message != "") {
+        this.translating = true;
+        var rand_lang_codes = [];
+        var rand_lang = [];
+        const first_lang = this.languages[this.language_selected];
+        rand_lang_codes.push(first_lang);
+        rand_lang.push(this.language_selected);
+        while (rand_lang_codes.length < 10) {
+          var rand_index = Math.floor(
+            Math.random() * this.language_names.length
+          );
+          if (
+            this.languages[this.language_names[rand_index]] !=
+            rand_lang_codes[rand_lang_codes.length - 1]
+          ) {
+            rand_lang.push(this.language_names[rand_index]);
+            rand_lang_codes.push(
+              this.languages[this.language_names[rand_index]]
+            );
+          }
+        }
+        rand_lang_codes.push(this.languages[this.language_selected]);
+        rand_lang.push(this.language_selected);
+        for (var i = 1; i < rand_lang_codes.length && this.translating; i++) {
+          this.message = await this.translate(
+            rand_lang_codes[i - 1],
+            rand_lang_codes[i]
+          );
+          this.language_selected = rand_lang[i];
+        }
+        this.translating = false;
+      }
     },
     async translate(from, to) {
-      var result = await this.translator.translate(this.message, from, to);
-      console.log(result);
+      try {
+        var result = await this.translator.translate(this.message, from, to);
+        return result;
+      } catch (e) {
+        console.log(e);
+        alert(
+          "Either you did not activate, or you have used up your limit.\nTry in another hour!"
+        );
+        this.translating = false;
+      }
     },
   },
   created() {
+    this.language_names = Object.keys(this.languages);
     // Use some CORS proxy service address as prefix
-    // this.translator = new GoogleTranslator({
-    //   corsProxy: "ttps://api.allorigins.win/raw?url=",
-    // });
+    this.translator = new GoogleTranslator({
+      corsProxy: "https://loneliness.one/api/cors/",
+    });
   },
 };
 </script>
