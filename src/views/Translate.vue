@@ -254,7 +254,7 @@ export default {
         .translate("Hello world", "en", "de")
         .then((translate) => console.log("corsanywhere", translate));
       this.translator = new GoogleTranslator({
-        corsProxy: "http://alloworigin.com/get?url=",
+        corsProxy: "https://alloworigin.com/get?url=",
       });
       this.translator
         .translate("Hello world", "en", "de")
