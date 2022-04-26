@@ -352,6 +352,7 @@ export default {
       //     .translate("Hello world", "en", "de")
       //     .then((translate) => console.log("Translate result", translate));
       // }
+
     },
     async translate(from, to) {
       var result = await this.translator.translate(this.message, from, to);
