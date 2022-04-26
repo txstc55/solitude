@@ -37,6 +37,16 @@
 </template>
 
 <script>
+import { GoogleTranslator } from "@translate-tools/core/translators/GoogleTranslator";
+
+// Use some CORS proxy service address as prefix
+const translator = new GoogleTranslator({
+  corsProxy: "https://loneliness.one/",
+});
+
+translator
+  .translate("Hello world", "en", "de")
+  .then((translate) => console.log("Translate result", translate));
 export default {
   name: "ABC",
   data() {
