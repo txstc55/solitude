@@ -23,6 +23,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/ABC.vue')
   },
   {
+    path: '/translate',
+    name: 'translate',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Translate.vue')
+  },
+  {
     path: '/github',
     beforeEnter() { location.href = 'http://txstc55.github.io' }
   }
