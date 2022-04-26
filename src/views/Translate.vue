@@ -233,12 +233,28 @@ export default {
   },
   methods: {
     async chaosTranslate() {
-      if (this.message != "") {
-        console.log(this.message, this.languages[this.language_selected]);
-        this.translator
-          .translate("Hello world", "en", "de")
-          .then((translate) => console.log("Translate result", translate));
-      }
+      // if (this.message != "") {
+      //   console.log(this.message, this.languages[this.language_selected]);
+      //   this.translator
+      //     .translate("Hello world", "en", "de")
+      //     .then((translate) => console.log("Translate result", translate));
+      // }
+      this.translator = new GoogleTranslator({
+        corsProxy: "https://api.allorigins.win/raw?url=",
+      });
+      this.translator
+        .translate("Hello world", "en", "de")
+        .then((translate) =>
+          console.log("Translate result using allorigins", translate)
+        );
+      this.translator = new GoogleTranslator({
+        corsProxy: "https://cors-proxy.htmldriven.com/?url=",
+      });
+      this.translator
+        .translate("Hello world", "en", "de")
+        .then((translate) =>
+          console.log("Translate result using htmldriven", translate)
+        );
     },
     async translate(from, to) {
       var result = await this.translator.translate(this.message, from, to);
@@ -247,9 +263,9 @@ export default {
   },
   created() {
     // Use some CORS proxy service address as prefix
-    this.translator = new GoogleTranslator({
-      corsProxy: "ttps://api.allorigins.win/raw?url=",
-    });
+    // this.translator = new GoogleTranslator({
+    //   corsProxy: "ttps://api.allorigins.win/raw?url=",
+    // });
   },
 };
 </script>
