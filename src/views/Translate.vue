@@ -317,7 +317,7 @@ export default {
     this.language_names = Object.keys(this.languages);
     // Use some CORS proxy service address as prefix
     this.translator = new GoogleTranslator({
-      corsProxy: "https://loneliness.one/api/cors/",
+      corsProxy: "https://cors-anywhere.herokuapp.com/",
     });
   },
 };
