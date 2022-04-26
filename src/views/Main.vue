@@ -28,10 +28,12 @@ export default {
       texts: [
         "Accept Loneliness",
         "接受孤独",
-        "孤独を受け入れる",
+        "You are not alone",
+        "你并不孤独",
         "Embrace Darkness",
         "拥抱黑暗",
-        "暗を抱きしめて",
+        "Step into light",
+        "步入光明",
       ],
       order: 0,
     };
@@ -79,7 +81,7 @@ export default {
   src: url("../fonts/TabulamoreScript-Bold.otf") format("opentype");
 }
 h2 {
-  font-family: "Tabulamore", "Zhi Mang Xing", cursive, "Yuji Mai", serif;
+  font-family: "Tabulamore", "Zhi Mang Xing", cursive, serif;
   word-break: break-all;
 }
 
