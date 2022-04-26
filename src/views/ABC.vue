@@ -41,7 +41,7 @@ import { GoogleTranslator } from "@translate-tools/core/translators/GoogleTransl
 
 // Use some CORS proxy service address as prefix
 const translator = new GoogleTranslator({
-  corsProxy: "https://cors-anywhere.herokuapp.com/https://loneliness.one/",
+//   corsProxy: "https://cors-anywhere.herokuapp.com/https://loneliness.one/",
 });
 
 translator
