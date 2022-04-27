@@ -60,7 +60,11 @@
               "
               v-model="language_selected"
             >
-              <option v-for="(_, item) in languages" :value="item">
+              <option
+                v-for="(_, item) in languages"
+                :value="item"
+                class="others"
+              >
                 {{ item }}
               </option>
             </select>
@@ -77,7 +81,7 @@
               "
             >
               <svg
-                class="fill-current h-4 w-4"
+                class="fill-current h-4 w-4 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
               >
@@ -289,9 +293,7 @@ export default {
         return result;
       } catch (e) {
         console.log(e);
-        alert(
-          "There are probably too many requests.\nPlease come back later."
-        );
+        alert("There are probably too many requests.\nPlease come back later.");
         this.translating = false;
       }
     },
@@ -310,4 +312,7 @@ export default {
 
 
 <style scoped>
+.others {
+  color: black;
+}
 </style>
