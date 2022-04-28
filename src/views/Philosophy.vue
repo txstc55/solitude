@@ -44,7 +44,7 @@
           mx-2
         "
       >
-        <div class="h-36 overflow-y-scroll">
+        <div class="h-36 overflow-y-auto hide-scroll">
           <h5
             class="text-white leading-tight mb-1 font-mono font-bold text-2xl"
           >
@@ -346,4 +346,11 @@ export default {
 </script>
 
 <style scoped>
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+.hide-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 </style>
