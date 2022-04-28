@@ -8,10 +8,6 @@
       <div
         class="
           absolute
-          -inset-1
-          bg-gradient-to-r
-          from-orange-400
-          to-purple-600
           rounded-lg
           blur
           opacity-75
@@ -171,38 +167,7 @@ export default {
 </script>
 
 <style scoped>
-.countText {
-  color: #daeceb;
-  animation: ani 5000ms ease-in infinite alternate;
-}
-
-@-webkit-keyframes ani {
-  from {
-    text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px #689dff, 0 0 1px #68aeff,
-      0 0 1px #6884ff, 0 0 1px #6877ff, 0 0 1px #5d4ac8;
-  }
-
-  to {
-    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px #f02117, 0 0 2px #fd746c,
-      0 0 2px #fde26c, 0 0 2px #d89f9c, 0 0 2px #e92fc1;
-  }
-}
-
 .timeText {
-  color: #daeceb;
   text-align: center;
-  animation: ani2 7000ms ease-in infinite alternate;
-}
-
-@-webkit-keyframes ani2 {
-  from {
-    text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px #f02117, 0 0 1px #fd746c,
-      0 0 1px #fde26c, 0 0 1px #d89f9c, 0 0 1px #e92fc1;
-  }
-
-  to {
-    text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px #689dff, 0 0 2px #68aeff,
-      0 0 2px #6884ff, 0 0 2px #6877ff, 0 0 2px #5d4ac8;
-  }
 }
 </style>
