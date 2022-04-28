@@ -13,11 +13,22 @@
         pt-20
       "
     >
-      <router-link class="p-3" to="/">Main</router-link>
-      <router-link class="p-3" to="/button">Button</router-link>
-      <router-link class="p-3" to="/abc">ABC</router-link>
-      <router-link class="p-3" to="/translate">Translate</router-link>
-      <router-link class="p-3" to="/github" target="_blank">Me</router-link>
+      <div class="grid grid-cols-3 md:grid-cols-6 place-items-center">
+        <router-link class="p-1 md:p-3 font-mono" to="/">Main</router-link>
+        <router-link class="p-1 md:p-3 font-mono" to="/button"
+          >Button</router-link
+        >
+        <router-link class="p-1 md:p-3 font-mono" to="/abc">ABC</router-link>
+        <router-link class="p-1 md:p-3 font-mono" to="/translate"
+          >Translate</router-link
+        >
+        <router-link class="p-1 md:p-3 font-mono" to="/philosophy"
+          >Philosophy</router-link
+        >
+        <router-link class="p-1 md:p-3 font-mono" to="/github" target="_blank"
+          >Me</router-link
+        >
+      </div>
     </div>
     <router-view v-slot="{ Component }">
       <transition name="scale" mode="out-in">
@@ -28,8 +39,6 @@
 </template>
 
 <script>
-// import Button from "./views/Button.vue";
-
 export default {
   name: "App",
   components: {
