@@ -41,6 +41,7 @@
             hover:-translate-y-1
             transform
             duration-300
+            mx-2
           "
         >
           <div class="h-36 overflow-y-scroll">
@@ -246,7 +247,6 @@ export default {
           this.seenPages.add(firstDoc.title().toLowerCase());
           this.wikiLinkPositions.push(0);
           if (firstDoc.title().toLowerCase() == "philosophy") {
-            alert("Done");
             this.findingPath = false;
             return;
           }
@@ -294,7 +294,6 @@ export default {
                 );
                 var newPages = await this.findNext(pageCandidate);
                 if (pageCandidate.toLowerCase() == "philosophy") {
-                  alert("Done");
                   this.findingPath = false;
                   // we have reached the destiny
                   break;
@@ -310,7 +309,9 @@ export default {
         } catch (e) {
           console.log(e);
           this.findingPath = false;
-          alert("Please make sure you entered a valid wiki link");
+          alert(
+            "Please make sure you entered a valid wiki link and internet is connected"
+          );
         }
       }
       // console.log(categories);
