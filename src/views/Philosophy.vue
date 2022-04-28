@@ -1,89 +1,61 @@
 <template>
-  <div>
+  <div
+    class="
+      grid grid-cols-1
+      md:grid-cols-2
+      lg:grid-cols-3
+      xl:grid-cols-4
+      pt-32
+      px-5
+      content-start
+      overflow-auto
+      max-h-screen
+      h-screen
+    "
+  >
     <div
       class="
-        grid grid-cols-1
-        md:grid-cols-2
-        lg:grid-cols-3
-        xl:grid-cols-4
-        pt-32
-        px-5
-        content-start
-        overflow-auto
-        max-h-screen
+        flex
+        justify-center
+        mb-10
+        w-full
+        h-56
+        animate-in
+        fade-in
+        zoom-in
+        duration-300
       "
+      v-for="(item, index) in wikiTitles"
+      :key="index"
     >
       <div
         class="
-          flex
-          justify-center
-          mb-10
+          block
+          p-4
+          rounded-lg
+          shadow-lg
+          bg-gray-600/10
+          max-w-sm
           w-full
-          h-56
-          animate-in
-          fade-in
-          zoom-in
+          border-2 border-white
+          hover:-translate-y-1
+          transform
           duration-300
+          mx-2
         "
-        v-for="(item, index) in wikiTitles"
-        :key="index"
       >
-        <div
-          class="
-            block
-            p-4
-            rounded-lg
-            shadow-lg
-            bg-gray-600/10
-            max-w-sm
-            w-full
-            border-2 border-white
-            hover:-translate-y-1
-            transform
-            duration-300
-            mx-2
-          "
-        >
-          <div class="h-36 overflow-y-scroll">
-            <h5
-              class="text-white leading-tight mb-1 font-mono font-bold text-2xl"
-            >
-              {{ wikiTitles[index] }}
-            </h5>
-            <p class="text-white text-base mb-2 font-mono">
-              Link position in last page: {{ wikiLinkPositions[index] }} <br />
-              Categories: {{ wikiCategories[index].join(", ") }}
-            </p>
-          </div>
-          <a :href="wikiLinks[index]" target="_blank">
-            <button
-              type="button"
-              class="
-                inline-block
-                px-6
-                py-2.5
-                font-medium
-                text-xs
-                leading-tight
-                uppercase
-                rounded
-                font-mono
-                text-white
-                active:text-black
-                disabled:bg-gray-700 disabled:text-gray-300
-                bg-black/0
-                active:bg-gray-100
-                border-2 border-white
-                transition
-                duration-150
-                ease-in-out
-                absolute
-                bottom-3
-              "
-            >
-              Link
-            </button>
-          </a>
+        <div class="h-36 overflow-y-scroll">
+          <h5
+            class="text-white leading-tight mb-1 font-mono font-bold text-2xl"
+          >
+            {{ wikiTitles[index] }}
+          </h5>
+          <p class="text-white text-base mb-2 font-mono">
+            Link position in last page: {{ wikiLinkPositions[index] }} <br />
+            Categories: {{ wikiCategories[index].join(", ") }}
+          </p>
+        </div>
+        <a :href="wikiLinks[index]" target="_blank">
           <button
             type="button"
             class="
@@ -98,7 +70,7 @@
               font-mono
               text-white
               active:text-black
-              disabled:bg-gray-400/50 disabled:text-gray-300
+              disabled:bg-gray-700 disabled:text-gray-300
               bg-black/0
               active:bg-gray-100
               border-2 border-white
@@ -107,17 +79,44 @@
               ease-in-out
               absolute
               bottom-3
-              right-4
             "
-            @click="
-              this.searchInput = this.wikiLinks[index];
-              this.findPath();
-            "
-            :disabled="this.findingPath"
           >
-            build
+            Link
           </button>
-        </div>
+        </a>
+        <button
+          type="button"
+          class="
+            inline-block
+            px-6
+            py-2.5
+            font-medium
+            text-xs
+            leading-tight
+            uppercase
+            rounded
+            font-mono
+            text-white
+            active:text-black
+            disabled:bg-gray-400/50 disabled:text-gray-300
+            bg-black/0
+            active:bg-gray-100
+            border-2 border-white
+            transition
+            duration-150
+            ease-in-out
+            absolute
+            bottom-3
+            right-4
+          "
+          @click="
+            this.searchInput = this.wikiLinks[index];
+            this.findPath();
+          "
+          :disabled="this.findingPath"
+        >
+          build
+        </button>
       </div>
     </div>
     <div
