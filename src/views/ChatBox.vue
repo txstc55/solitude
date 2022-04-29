@@ -44,12 +44,11 @@
           v-for="(item, index) in cubeTexts"
           :key="index"
           class="
-            cube__face
+            cube__face__small
             noselect
             border-white
             transform
-            duration-500
-            break-all
+            duration-500 break-words
             font-sans
           "
           :id="'cube_' + index"
@@ -61,7 +60,7 @@
             'line-height':
               (this.smallCubeFaceActive[index]
                 ? this.boxWidth / 12
-                : this.boxWidth) + 'px',
+                : this.boxWidth - 24) + 'px',
             'font-size':
               (this.smallCubeFaceActive[index]
                 ? this.boxWidth / 12
@@ -305,6 +304,13 @@ export default {
   color: white;
   text-align: center;
   background: rgba(0, 0, 0, 0.8);
+}
+
+.cube__face__small {
+  position: absolute;
+  color: white;
+  text-align: center;
+  background: rgba(9, 13, 23, 0.6);
 }
 
 label {
