@@ -14,9 +14,7 @@
         z-50
       "
     >
-      <div
-        class="grid grid-cols-3 md:grid-cols-6 place-items-center"
-      >
+      <div class="grid grid-cols-3 md:grid-cols-7 place-items-center">
         <router-link class="p-1 md:p-3 font-mono" to="/">Main</router-link>
         <router-link class="p-1 md:p-3 font-mono" to="/button"
           >Button</router-link
@@ -27,6 +25,9 @@
         >
         <router-link class="p-1 md:p-3 font-mono" to="/philosophy"
           >Philosophy</router-link
+        >
+        <router-link class="p-1 md:p-3 font-mono" to="/chatbox"
+          >Box</router-link
         >
         <router-link class="p-1 md:p-3 font-mono" to="/github" target="_blank"
           >Me</router-link
