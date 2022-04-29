@@ -6,15 +6,13 @@
         absolute
         left-1/2
         transform
-        -translate-x-1/2 -translate-y-1/2
+        -translate-x-1/2
         text-white text-xl
-        bg-black/60
-        content-center
-        pt-20
-        z-50
+        bg-black/60 content-start
+        z-50 pt-2
       "
     >
-      <div class="grid grid-cols-3 md:grid-cols-7 place-items-center">
+      <div class="grid grid-cols-3 md:grid-cols-7 place-items-start">
         <router-link class="p-1 md:p-3 font-mono" to="/">Main</router-link>
         <router-link class="p-1 md:p-3 font-mono" to="/button"
           >Button</router-link
