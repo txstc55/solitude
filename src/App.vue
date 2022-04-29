@@ -65,11 +65,6 @@ html {
   background: black;
   height: 100vh;
 }
-html,
-body {
-  overscroll-behavior-y: none;
-}
-
 #nav {
   // padding: 30px;
   width: 100%;

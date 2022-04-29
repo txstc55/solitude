@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-screen grid subpixel-antialiased overscroll-y-contain"
+    class="h-screen grid subpixel-antialiased overscroll-y-none"
     :style="{ padding: paddingTop + 'px 0px 0px 0px' }"
     @mousedown="this.mouseDownFunction"
     @mousemove="this.mouseMoveFunction"
@@ -298,11 +298,5 @@ label {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
-}
-
-html,
-body {
-  overscroll-behavior-y: none;
-  position: fixed;
 }
 </style>
