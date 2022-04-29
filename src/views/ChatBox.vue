@@ -299,4 +299,9 @@ label {
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+html,
+body {
+  overscroll-behavior-y: contain;
+}
 </style>
