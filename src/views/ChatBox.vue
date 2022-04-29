@@ -6,6 +6,9 @@
     @mousemove="this.mouseMoveFunction"
     @mouseup="this.mouseDown = false"
     @mouseleave="this.mouseDown = false"
+    @touchstart="this.mouseDownFunction"
+    @touchmove="this.mouseMoveFunction"
+    @touchend="this.mouseDown = false"
   >
     <div
       class="relative mx-auto"
@@ -46,7 +49,8 @@
             border-white
             transform
             duration-500
-            break-all font-sans
+            break-all
+            font-sans
           "
           :class="smallCubeFaceActive[index] ? 'allowScroll' : 'noScroll'"
           :style="{
@@ -62,9 +66,9 @@
                 ? this.boxWidth / 12
                 : this.boxWidth * 0.8) + 'px',
             'border-width': (this.smallCubeFaceActive[index] ? 2 : 8) + 'px',
-            'font-weight': (this.smallCubeFaceActive[index] ? '200' : 'bold'),
+            'font-weight': this.smallCubeFaceActive[index] ? '200' : 'bold',
           }"
-          @mousedown="this.scaleSmallFace(index)"
+          @click="this.scaleSmallFace(index)"
         >
           {{ smallCubeTexts[index] }}
         </div>
