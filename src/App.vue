@@ -67,7 +67,7 @@ html {
 }
 html,
 body {
-  overscroll-behavior-y: contain;
+  overscroll-behavior-y: none;
 }
 
 #nav {
