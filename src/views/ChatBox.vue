@@ -46,7 +46,7 @@
             border-white
             transform
             duration-500
-            break-all font-mono
+            break-all font-sans
           "
           :class="smallCubeFaceActive[index] ? 'allowScroll' : 'noScroll'"
           :style="{
@@ -62,7 +62,7 @@
                 ? this.boxWidth / 12
                 : this.boxWidth * 0.8) + 'px',
             'border-width': (this.smallCubeFaceActive[index] ? 2 : 8) + 'px',
-            'font-weight': (this.smallCubeFaceActive[index] ? '100' : 'bold'),
+            'font-weight': (this.smallCubeFaceActive[index] ? '200' : 'bold'),
           }"
           @mousedown="this.scaleSmallFace(index)"
         >
