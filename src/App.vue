@@ -8,11 +8,11 @@
         transform
         -translate-x-1/2
         text-white text-xl
-        bg-black/60 content-start
+        bg-black/60 content-center
         z-50 pt-2
       "
     >
-      <div class="grid grid-cols-3 md:grid-cols-7 place-items-start">
+      <div class="grid grid-cols-3 md:grid-cols-7 place-items-center">
         <router-link class="p-1 md:p-3 font-mono" to="/">Main</router-link>
         <router-link class="p-1 md:p-3 font-mono" to="/button"
           >Button</router-link
