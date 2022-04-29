@@ -97,7 +97,7 @@ export default {
         [0, 1, 0],
         [0, 0, 1],
       ],
-      cubeTexts: ["", "", "", "", "", "", ""],
+      cubeTexts: ["", "", "", "", "", ""],
       smallCubeTexts: ["0", "1", "2", "3", "4", "5"],
       smallCubeScale: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
       smallCubeFaceActive: [false, false, false, false, false, false],
@@ -229,32 +229,32 @@ export default {
     smallCubeFaceStyles() {
       return [
         "rotateY(0deg) translateZ(" +
-          (this.boxWidth / 2 + 5) +
+          (this.boxWidth / 2 + this.boxWidth / 40) +
           "px) scale(" +
           this.smallCubeScale[0] +
           ")",
         "rotateY(90deg) translateZ(" +
-          (this.boxWidth / 2 + 5) +
+          (this.boxWidth / 2 + this.boxWidth / 40) +
           "px) scale(" +
           this.smallCubeScale[1] +
           ")",
         "rotateY(180deg) translateZ(" +
-          (this.boxWidth / 2 + 5) +
+          (this.boxWidth / 2 + this.boxWidth / 40) +
           "px) scale(" +
           this.smallCubeScale[2] +
           ")",
         "rotateY(-90deg) translateZ(" +
-          (this.boxWidth / 2 + 5) +
+          (this.boxWidth / 2 + this.boxWidth / 40) +
           "px) scale(" +
           this.smallCubeScale[3] +
           ")",
         "rotateX(90deg) translateZ(" +
-          (this.boxWidth / 2 + 5) +
+          (this.boxWidth / 2 + this.boxWidth / 40) +
           "px) scale(" +
           this.smallCubeScale[4] +
           ")",
         "rotateX(-90deg) translateZ(" +
-          (this.boxWidth / 2 + 5) +
+          (this.boxWidth / 2 + this.boxWidth / 40) +
           "px) scale(" +
           this.smallCubeScale[5] +
           ")",
@@ -304,7 +304,7 @@ export default {
   position: absolute;
   color: white;
   text-align: center;
-  background: rgba(0, 0, 0, 1);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 label {
