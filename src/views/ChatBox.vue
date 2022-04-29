@@ -117,8 +117,8 @@ export default {
       this.paddingTop = Math.floor(window.innerHeight / 3);
     },
     mouseDownFunction(e) {
-      this.xScreen = e.screenX;
-      this.yScreen = e.screenY;
+      this.xScreen = e.screenX || e.touches[0].screenX;
+      this.yScreen = e.screenY || e.touches[0].screenY;
       this.mouseDown = true;
     },
     computeRotationMatrix(yaw, pitch) {
@@ -154,8 +154,8 @@ export default {
     },
     mouseMoveFunction(e) {
       if (this.mouseDown) {
-        var newX = e.screenX;
-        var newY = e.screenY;
+        var newX = e.screenX || e.touches[0].screenX;
+        var newY = e.screenY || e.touches[0].screenY;
         var diffX = newX - this.xScreen;
         var diffY = newY - this.yScreen;
         this.computeRotationMatrix(
@@ -249,7 +249,7 @@ export default {
   mounted() {},
   created() {
     this.boxWidth = Math.max(
-      300,
+      200,
       Math.floor(Math.min(window.innerWidth, window.innerHeight) / 3)
     );
     this.smallBoxWidth = this.boxWidth / 4;
