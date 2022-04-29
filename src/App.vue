@@ -3,13 +3,15 @@
     <div
       id="nav"
       class="
-        absolute
         left-1/2
         transform
         -translate-x-1/2
         text-white text-xl
-        bg-black/60 content-center
-        z-50 pt-2
+        bg-black/60
+        content-center
+        z-50
+        pt-2
+        fixed
       "
     >
       <div class="grid grid-cols-3 md:grid-cols-7 place-items-center">
