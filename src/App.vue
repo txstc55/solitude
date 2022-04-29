@@ -27,7 +27,7 @@
           >Philosophy</router-link
         >
         <router-link class="p-1 md:p-3 font-mono" to="/chatbox"
-          >Box</router-link
+          >ChatBox</router-link
         >
         <router-link class="p-1 md:p-3 font-mono" to="/github" target="_blank"
           >Me</router-link
