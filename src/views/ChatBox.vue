@@ -170,7 +170,7 @@ export default {
             window.requestAnimationFrame(() => {
               this.scrollAnimate(index, 1);
             });
-          }, 1500);
+          }, 2000);
         } else {
           this.smallFaces[index].scrollTop += direction;
           if (lastScrollTop == this.smallFaces[index].scrollTop) {
@@ -178,7 +178,7 @@ export default {
               window.requestAnimationFrame(() => {
                 this.scrollAnimate(index, -1);
               });
-            }, 1500);
+            }, 2000);
           } else {
             window.requestAnimationFrame(() => {
               this.scrollAnimate(index, direction);
@@ -199,7 +199,7 @@ export default {
             window.requestAnimationFrame(() => {
               this.scrollAnimate(index, 1);
             });
-          }, 1500);
+          }, 2000);
           setTimeout(() => {
             this.smallCubeScale[index] = 0;
             setTimeout(() => {
