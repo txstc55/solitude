@@ -14,7 +14,7 @@
         pb-3
         fixed
       "
-      v-show="exitPressed == '0' && !exitPressedNow"
+      v-show="!exitPressedNow"
     >
       <div class="grid grid-cols-2 place-items-center">
         <router-link
@@ -61,7 +61,7 @@
     </div>
     <router-view v-slot="{ Component }">
       <transition name="scale" mode="out-in">
-        <component :is="Component" @returnHome="this.exitPressedNow = false" />
+        <component :is="Component" @returnHome="updateExitPressedNow" />
       </transition>
     </router-view>
   </v-app>
@@ -75,18 +75,7 @@ export default {
       exitPressedNow: false,
     };
   },
-  computed: {
-    exitPressed() {
-      var nameEQ = "exitPressed" + "=";
-      var ca = document.cookie.split(";");
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == " ") c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-      }
-      return 0; // 0 for not pressed, 1 for pressed
-    },
-  },
+  computed: {},
   methods: {
     exit() {
       this.exitPressedNow = true;
@@ -96,6 +85,9 @@ export default {
       expires = "; expires=" + date.toUTCString();
       document.cookie =
         "exitPressed" + "=" + ("1" || "") + expires + "; path=/";
+    },
+    updateExitPressedNow(value) {
+      this.exitPressedNow = value;
     },
   },
 };

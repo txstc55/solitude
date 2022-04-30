@@ -107,7 +107,7 @@ export default {
       this.relativeY = e.clientY - this.height / 2;
     },
     goHome() {
-      this.$emit("returnHome");
+      this.$emit("returnHome", false);
       var expires = "";
       var date = new Date();
       date.setTime(date.getTime() + 1 * 60 * 60 * 1000);
@@ -150,6 +150,7 @@ export default {
     },
   },
   created() {
+    this.$emit("returnHome", true);
     this.getSpec();
     window.addEventListener("resize", this.getSpec);
   },
