@@ -85,7 +85,7 @@
     </button>
     <div
       class="relative mx-auto"
-      :style="{ height: boxWidth + 'px', perspective: boxWidth * 2 + 'px' }"
+      :style="{ height: boxWidth + 'px', perspective: boxWidth * 2.5 + 'px' }"
     >
       <div
         class="cube relative mx-auto"
@@ -489,7 +489,7 @@ export default {
   position: absolute;
   color: white;
   text-align: center;
-  background: rgba(9, 13, 23, 0.6);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 label {
@@ -502,6 +502,9 @@ label {
   padding: 10px;
 }
 .noScroll {
+  color: rgba(0, 0, 0);
+  text-shadow: -5px -5px 0 #ffffff, 5px -5px 0 #ffffff, -5px 5px 0 #ffffff,
+    5px 5px 0 #ffffff;
   overflow: hidden;
 }
 
