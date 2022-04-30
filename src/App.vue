@@ -7,31 +7,55 @@
         transform
         -translate-x-1/2
         text-white text-xl
-        bg-black/60
+        bg-black/50
         content-center
         z-50
         pt-2
+        pb-3
         fixed
       "
     >
-      <div class="grid grid-cols-3 md:grid-cols-7 place-items-center">
-        <router-link class="p-1 md:p-3 font-mono" to="/">Main</router-link>
-        <router-link class="p-1 md:p-3 font-mono" to="/button"
-          >Button</router-link
+      <div class="grid grid-cols-2 place-items-center">
+        <router-link
+          class="
+            p-1
+            font-mono
+            mt-2
+            transform
+            duration-300
+            hover:text-green-400
+            text-gray-500 text-xl
+            font-semibold
+            border-2 border-gray-500
+            rounded-md
+            hover:border-green-400
+            px-2
+          "
+          to="/"
+          >HOME</router-link
         >
-        <router-link class="p-1 md:p-3 font-mono" to="/abc">ABC</router-link>
-        <router-link class="p-1 md:p-3 font-mono" to="/translate"
-          >Translate</router-link
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-1 place-items-center">
+        <button
+          class="
+            p-1
+            font-mono
+            mt-2
+            transform
+            duration-300
+            hover:text-red-500
+            text-gray-500 text-xl
+            font-semibold
+            border-2 border-gray-500
+            rounded-md
+            hover:border-red-500
+            px-2
+          "
+          to="/"
+          @click="close"
         >
-        <router-link class="p-1 md:p-3 font-mono" to="/philosophy"
-          >Philosophy</router-link
-        >
-        <router-link class="p-1 md:p-3 font-mono" to="/chatbox"
-          >ChatBox</router-link
-        >
-        <router-link class="p-1 md:p-3 font-mono" to="/github" target="_blank"
-          >Me</router-link
-        >
+          EXIT
+        </button>
       </div>
     </div>
     <router-view v-slot="{ Component }">
@@ -45,8 +69,10 @@
 <script>
 export default {
   name: "App",
-  components: {
-    // Button,
+  methods: {
+    close() {
+      window.close();
+    },
   },
 };
 </script>
@@ -71,16 +97,6 @@ html {
   align-items: center;
   display: flex;
   justify-content: center;
-
-  a {
-    font-weight: bold;
-    font-size: 15px;
-    color: #55677a;
-
-    &.router-link-exact-active {
-      color: #f4feff;
-    }
-  }
 }
 
 html,

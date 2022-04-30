@@ -6,6 +6,7 @@ module.exports = {
       spacing: {
         92: '23rem',
         94: '23.5rem',
+        128: '32rem',
       },
       animation: {
         tilt: 'tilt 10s infinite linear',

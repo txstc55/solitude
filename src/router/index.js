@@ -3,8 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    name: 'main',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
+    name: 'nav',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Nav.vue')
   },
   {
     path: '/button',
@@ -13,6 +13,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Button.vue')
+  },
+  {
+    path: '/loneliness',
+    name: 'loneliness',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
   },
   {
     path: '/abc',
