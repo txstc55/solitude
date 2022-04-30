@@ -14,6 +14,7 @@
         pb-3
         fixed
       "
+      v-show="exitPressed == '0' && !exitPressedNow"
     >
       <div class="grid grid-cols-2 place-items-center">
         <router-link
@@ -36,7 +37,7 @@
         >
       </div>
       <div class="grid grid-cols-1 md:grid-cols-1 place-items-center">
-        <button
+        <router-link
           class="
             p-1
             font-mono
@@ -51,16 +52,16 @@
             hover:border-red-500
             px-2
           "
-          to="/"
-          @click="close"
+          to="/exit"
+          @click="exit"
         >
           EXIT
-        </button>
+        </router-link>
       </div>
     </div>
     <router-view v-slot="{ Component }">
       <transition name="scale" mode="out-in">
-        <component :is="Component" />
+        <component :is="Component" @returnHome="this.exitPressedNow = false" />
       </transition>
     </router-view>
   </v-app>
@@ -69,9 +70,32 @@
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+      exitPressedNow: false,
+    };
+  },
+  computed: {
+    exitPressed() {
+      var nameEQ = "exitPressed" + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return 0; // 0 for not pressed, 1 for pressed
+    },
+  },
   methods: {
-    close() {
-      window.open("", "_self").close();
+    exit() {
+      this.exitPressedNow = true;
+      var expires = "";
+      var date = new Date();
+      date.setTime(date.getTime() + 1 * 60 * 60 * 1000);
+      expires = "; expires=" + date.toUTCString();
+      document.cookie =
+        "exitPressed" + "=" + ("1" || "") + expires + "; path=/";
     },
   },
 };

@@ -12,6 +12,7 @@
       max-h-screen
       h-screen
     "
+    v-show="exitPressed == '0'"
   >
     <div
       class="
@@ -205,6 +206,7 @@
 
 <script>
 import wtf from "wtf_wikipedia";
+import router from "../router";
 export default {
   name: "Philisophy",
   data() {
@@ -218,6 +220,18 @@ export default {
       links: [],
       seenPages: new Set([]),
     };
+  },
+  computed: {
+    exitPressed() {
+      var nameEQ = "exitPressed" + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return '0'; // 0 for not pressed, 1 for pressed
+    },
   },
   methods: {
     async findPath() {
@@ -341,7 +355,11 @@ export default {
       return allPages;
     },
   },
-  mounted() {},
+  mounted() {
+    if (this.exitPressed == '1') {
+      router.push("/exit");
+    }
+  },
 };
 </script>
 

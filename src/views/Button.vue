@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen grid">
+  <div class="h-screen grid" v-show="exitPressed == '0'">
     <h1 class="text-white mt-auto font-mono text-3xl countText text-center">
       You can only click this button every {{ wait }} seconds<br />
       This button has been clicked {{ totalClicks }} times
@@ -73,6 +73,7 @@ import {
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import router from "../router";
 // import {firebase} from "firebase"
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -108,6 +109,18 @@ export default {
       wait: 1,
     };
   },
+  computed: {
+    exitPressed() {
+      var nameEQ = "exitPressed" + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return '0'; // 0 for not pressed, 1 for pressed
+    },
+  },
   methods: {
     incrementTime() {
       this.lastClickedTimeSeconds = Math.max(
@@ -142,6 +155,9 @@ export default {
     },
   },
   async created() {
+    if (this.exitPressed == '1') {
+      router.push("/exit");
+    }
     this.clickDocRef = doc(db, "Clicks", "0");
     this.clickDocSnap = await getDoc(this.clickDocRef);
     if (this.clickDocSnap.exists()) {

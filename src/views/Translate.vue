@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen grid">
+  <div class="h-screen grid" v-show="exitPressed == '0'">
     <div class="relative my-auto mx-auto font-mono">
       <textarea
         class="
@@ -125,6 +125,7 @@
 
 <script>
 import { GoogleTranslator } from "@translate-tools/core/translators/GoogleTranslator";
+import router from "../router";
 
 // translator
 //   .translate("Hello world", "en", "de")
@@ -246,6 +247,18 @@ export default {
       language_names: null,
     };
   },
+  computed: {
+    exitPressed() {
+      var nameEQ = "exitPressed" + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return '0'; // 0 for not pressed, 1 for pressed
+    },
+  },
   methods: {
     go2heroku() {
       window.open(
@@ -299,6 +312,9 @@ export default {
     },
   },
   created() {
+    if (this.exitPressed == '1') {
+      router.push("/exit");
+    }
     this.language_names = Object.keys(this.languages);
     // Use some CORS proxy service address as prefix
     this.translator = new GoogleTranslator({

@@ -9,6 +9,7 @@
     @touchstart="this.mouseDownFunction"
     @touchmove="this.mouseMoveFunction"
     @touchend="this.mouseDown = false"
+    v-show="exitPressed == '0'"
   >
     <textarea
       class="
@@ -153,6 +154,7 @@
 
 <script>
 var axios = require("axios");
+import router from "../router";
 export default {
   name: "ChatBox",
   data() {
@@ -201,7 +203,7 @@ export default {
         while (c.charAt(0) == " ") c = c.substring(1, c.length);
         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
       }
-      return 0;
+      return '0';
     },
     eraseCookie(name) {
       document.cookie =
@@ -392,6 +394,16 @@ export default {
         "rotateX(-90deg) translateZ(" + this.boxWidth / 2 + "px)",
       ];
     },
+    exitPressed() {
+      var nameEQ = "exitPressed" + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return 0; // 0 for not pressed, 1 for pressed
+    },
     smallCubeFaceStyles() {
       return [
         "rotateY(0deg) translateZ(" +
@@ -439,6 +451,9 @@ export default {
     },
   },
   mounted() {
+    if (this.exitPressed == '1') {
+      router.push("/exit");
+    }
     for (var i = 0; i < 6; i++) {
       this.smallFaces[i] = document.getElementById("cube_" + i);
     }
