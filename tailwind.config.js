@@ -3,6 +3,10 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",],
   theme: {
     extend: {
+      spacing: {
+        92: '23rem',
+        94: '23.5rem',
+      },
       animation: {
         tilt: 'tilt 10s infinite linear',
       },

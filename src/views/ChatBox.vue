@@ -10,6 +10,79 @@
     @touchmove="this.mouseMoveFunction"
     @touchend="this.mouseDown = false"
   >
+    <textarea
+      class="
+        mx-auto
+        form-control
+        block
+        w-96
+        px-3
+        py-1.5
+        text-base
+        font-normal font-mono
+        text-white
+        bg-black/50 bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        focus:text-white
+        focus:bg-gray-900/50
+        focus:border-blue-600
+        focus:outline-none
+        max-h-32
+        h-32
+        absolute
+        bottom-32
+        left-1/2
+        -translate-x-1/2
+        z-40
+        resize-none
+      "
+      placeholder="Your message"
+      v-model="message"
+      maxlength="666"
+    ></textarea>
+    <p
+      class="
+        font-mono
+        absolute
+        text-right
+        bottom-32
+        mx-auto
+        w-94
+        left-1/2
+        text-sm
+        -translate-x-1/2
+        text-slate-400/80
+      "
+    >
+      {{ message.length + "/" + characterLimit }}
+    </p>
+    <button
+      class="
+        absolute
+        bottom-24
+        left-1/2
+        w-96
+        border border-white
+        mx-auto
+        -translate-x-1/2
+        rounded-md
+        py-1
+        active:bg-gray-100
+        disabled:border-gray-500
+        text-white text-xl
+        font-mono
+        active:text-black
+        disabled:text-gray-500
+        translate-y-1/2
+      "
+      @click="this.sendMessage()"
+      :disabled="!canSendMessage"
+    >
+      SEND
+    </button>
     <div
       class="relative mx-auto"
       :style="{ height: boxWidth + 'px', perspective: boxWidth * 2 + 'px' }"
@@ -48,8 +121,9 @@
             noselect
             border-white
             transform
-            duration-500 break-words
-            font-sans
+            duration-500
+            break-words
+            font-mono
           "
           :id="'cube_' + index"
           :class="smallCubeFaceActive[index] ? 'allowScroll' : 'noScroll'"
@@ -60,7 +134,7 @@
             'line-height':
               (this.smallCubeFaceActive[index]
                 ? this.boxWidth / 12
-                : this.boxWidth - 24) + 'px',
+                : this.boxWidth) + 'px',
             'font-size':
               (this.smallCubeFaceActive[index]
                 ? this.boxWidth / 12
@@ -78,10 +152,15 @@
 </template>
 
 <script>
+var axios = require("axios");
 export default {
   name: "ChatBox",
   data() {
     return {
+      messageGapTimeInSeconds: 120,
+      canSendMessage: true,
+      characterLimit: 500,
+      message: "",
       boxWidth: 700,
       smallBoxWidth: 350,
       paddingTop: 200,
@@ -98,12 +177,56 @@ export default {
       ],
       cubeTexts: ["", "", "", "", "", ""],
       smallCubeTexts: ["0", "1", "2", "3", "4", "5"],
+      smallCubeReceivedTexts: ["", "", "", "", "", ""],
       smallCubeScale: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
       smallCubeFaceActive: [false, false, false, false, false, false],
       smallFaces: [null, null, null, null, null, null],
     };
   },
   methods: {
+    setCookie(name, value, days) {
+      var expires = "";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    },
+    getCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return 0;
+    },
+    eraseCookie(name) {
+      document.cookie =
+        name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    },
+    async getText(index) {
+      var data = JSON.stringify({
+        index: 1,
+      });
+
+      var config = {
+        method: "get",
+        url: "https://loneliness.one/api/post?index=" + index,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      var result = await axios(config);
+      if (result.status == 200) {
+        return result.data.text;
+      } else {
+        return "Please make sure your interenet is connected";
+      }
+    },
     windowResize() {
       this.boxWidth = Math.max(
         200,
@@ -186,14 +309,22 @@ export default {
         }
       }
     },
-    scaleSmallFace(index) {
-      if (this.smallCubeScale[index] == 0.25) {
+    async scaleSmallFace(index) {
+      if (
+        this.smallCubeScale[index] == 0.25 &&
+        !this.smallCubeFaceActive[index]
+      ) {
+        // the small face is at its original position, we can scale it
+        // first scale it down
         this.smallCubeScale[index] = 0;
-        setTimeout(() => {
+        setTimeout(async () => {
+          // we need to receive the text from server
+          this.smallCubeReceivedTexts[index] = await this.getText(index);
           this.smallCubeFaceActive[index] = true;
+          // now set the scale to 0.9, and let the animation do the work
           this.smallCubeScale[index] = 0.9;
-          this.smallCubeTexts[index] =
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+          // at the same time, set the text to the correct one
+          this.smallCubeTexts[index] = this.smallCubeReceivedTexts[index];
           setTimeout(() => {
             window.requestAnimationFrame(() => {
               this.scrollAnimate(index, 1);
@@ -209,6 +340,42 @@ export default {
           }, 15000);
         }, 800);
       }
+    },
+    sendMessage() {
+      var data = JSON.stringify({
+        text: this.message,
+      });
+
+      var config = {
+        method: "post",
+        url: "https://loneliness.one/api/post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      // disable send message button
+      this.canSendMessage = false;
+      let self = this;
+      axios(config)
+        .then(function (response) {
+          self.setCookie("lastSentMessageTime", new Date().getTime(), 1);
+          alert(
+            response.data.message +
+              "\nYou will need to wait " +
+              self.messageGapTimeInSeconds +
+              " seconds to send another message"
+          );
+          // reenable send message button after n seconds
+          setTimeout(() => {
+            self.canSendMessage = true;
+          }, self.messageGapTimeInSeconds * 1000);
+        })
+        .catch(function (error) {
+          alert("Something went wrong, please try again later.");
+          self.canSendMessage = true;
+          console.log(error);
+        });
     },
   },
   computed: {
@@ -284,6 +451,18 @@ export default {
     this.smallBoxWidth = this.boxWidth / 4;
     this.paddingTop = Math.floor(window.innerHeight / 3);
     window.addEventListener("resize", this.windowResize);
+
+    // check if we can send message
+    var lastMessageTime = this.getCookie("lastSentMessageTime");
+    const timeDifference = new Date().getTime() - lastMessageTime;
+    if (timeDifference >= this.messageGapTimeInSeconds * 1000) {
+      this.canSendMessage = true;
+    } else {
+      this.canSendMessage = false;
+      setTimeout(() => {
+        this.canSendMessage;
+      }, this.messageGapTimeInSeconds * 1000 - timeDifference);
+    }
   },
   destroyed() {
     window.removeEventListener("resize", this.windowResize);
