@@ -41,7 +41,7 @@
       "
       placeholder="Your message"
       v-model="message"
-      maxlength="666"
+      :maxlength="characterLimit"
     ></textarea>
     <p
       class="
@@ -133,7 +133,7 @@
             transform: smallCubeFaceStyles[index],
             'line-height':
               (this.smallCubeFaceActive[index]
-                ? this.boxWidth / 12
+                ? this.boxWidth / 9
                 : this.boxWidth) + 'px',
             'font-size':
               (this.smallCubeFaceActive[index]
@@ -322,7 +322,7 @@ export default {
           this.smallCubeReceivedTexts[index] = await this.getText(index);
           this.smallCubeFaceActive[index] = true;
           // now set the scale to 0.9, and let the animation do the work
-          this.smallCubeScale[index] = 0.9;
+          this.smallCubeScale[index] = 0.85;
           // at the same time, set the text to the correct one
           this.smallCubeTexts[index] = this.smallCubeReceivedTexts[index];
           setTimeout(() => {
@@ -337,7 +337,7 @@ export default {
               this.smallCubeTexts[index] = index;
               this.smallCubeScale[index] = 0.25;
             }, 800);
-          }, 15000);
+          }, 30000);
         }, 800);
       }
     },
