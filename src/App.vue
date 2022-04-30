@@ -71,7 +71,7 @@ export default {
   name: "App",
   methods: {
     close() {
-      window.close();
+      window.open("", "_self").close();
     },
   },
 };
