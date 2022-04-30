@@ -7,6 +7,7 @@ module.exports = {
         92: '23rem',
         94: '23.5rem',
         128: '32rem',
+        160: '40rem',
       },
       animation: {
         tilt: 'tilt 10s infinite linear',

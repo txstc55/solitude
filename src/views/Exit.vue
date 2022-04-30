@@ -11,12 +11,11 @@
           duration-200
           relative
           m-auto
-          w-128
-          h-128
-          border-white border-8
+          w-160
+          h-160
+          border-white border-[10px]
           grid
         "
-        :style="{ transform: transformStyle[0] }"
       >
         <div
           class="
@@ -24,12 +23,12 @@
             duration-200
             relative
             m-auto
-            w-96
-            h-96
-            border-white border-[6px]
+            w-128
+            h-128
+            border-white border-8
             grid
           "
-          :style="{ transform: transformStyle[1] }"
+          :style="{ transform: transformStyle[0] }"
         >
           <div
             class="
@@ -37,12 +36,12 @@
               duration-200
               relative
               m-auto
-              w-64
-              h-64
-              border-white border-4
+              w-96
+              h-96
+              border-white border-[6px]
               grid
             "
-            :style="{ transform: transformStyle[2] }"
+            :style="{ transform: transformStyle[1] }"
           >
             <div
               class="
@@ -50,33 +49,47 @@
                 duration-200
                 relative
                 m-auto
-                w-32
-                h-32
-                border-white border-2
+                w-64
+                h-64
+                border-white border-4
                 grid
-                bg-white
-                text-black
               "
-              :style="{ transform: transformStyle[3] }"
-              @click="goHome"
+              :style="{ transform: transformStyle[2] }"
             >
-              <p
+              <div
                 class="
-                  absolute
-                  leading-tight
-                  font-mono
-                  text-8xl
-                  font-extrabold
-                  w-full
-                  text-center
-                  uppercase
-                  noselect
+                  transform
+                  duration-200
+                  relative
+                  m-auto
+                  w-32
+                  h-32
+                  border-white border-2
+                  grid
+                  bg-white
                   text-black
                 "
-                :style="{ 'line-height': '128px' }"
+                :style="{ transform: transformStyle[3] }"
+                @click="goHome"
               >
-                H
-              </p>
+                <p
+                  class="
+                    absolute
+                    leading-tight
+                    font-mono
+                    text-8xl
+                    font-extrabold
+                    w-full
+                    text-center
+                    uppercase
+                    noselect
+                    text-black
+                  "
+                  :style="{ 'line-height': '128px' }"
+                >
+                  H
+                </p>
+              </div>
             </div>
           </div>
         </div>
