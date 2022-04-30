@@ -154,15 +154,15 @@ export default {
         },
         {
           title: "Loneliness",
-          currentText: "Embrace loneliness",
-          description: "Embrace loneliness",
-          altDescription: "Find solitude",
+          currentText: "Embrace loneliness.",
+          description: "Embrace loneliness.",
+          altDescription: "Find solitude.",
           link: "/loneliness",
         },
         {
           title: "Me",
-          currentText: "Click the link, you've found me",
-          description: "Click the link, you've found me",
+          currentText: "Click the link, you've found me.",
+          description: "Click the link, you've found me.",
           altDescription: "But who cares?",
           link: "/github",
         },
@@ -172,7 +172,7 @@ export default {
             "Find the path to philosophy, a known secret of Wikipedia.",
           description:
             "Find the path to philosophy, a known secret of Wikipedia.",
-          altDescription: "Maybe it's all connected",
+          altDescription: "Maybe it's all connected.",
           link: "/philosophy",
         },
         {
