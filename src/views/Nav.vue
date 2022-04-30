@@ -19,7 +19,6 @@
         justify-center
         mb-10
         w-full
-        h-128
         animate-in
         fade-in
         zoom-in
@@ -43,6 +42,8 @@
           duration-300
           mx-2
         "
+        @mouseover="this.switchDescription(item, 1)"
+        @mouseleave="this.switchDescription(item, 0)"
       >
         <div class="h-128 hide-scroll">
           <h5
@@ -79,7 +80,7 @@
               {{ item.title }}
             </h1>
             <p class="px-1 py-2 text-xl">
-              {{ item.description }}
+              {{ item.currentText }}
             </p>
           </div>
         </div>
@@ -118,7 +119,6 @@
 </template>
 
 <script>
-import wtf from "wtf_wikipedia";
 export default {
   name: "Nav",
   data() {
@@ -126,45 +126,76 @@ export default {
       pages: [
         {
           title: "ABC",
+          currentText:
+            "Recall childhood, use your keyboard and play the alphabet song.",
           description:
             "Recall childhood, use your keyboard and play the alphabet song.",
+          altDescription:
+            "Embrace the simplicity. Don't you just want to go back?",
           link: "/abc",
         },
         {
           title: "Button",
+          currentText:
+            "Click the button. If someone else clicked it, you will know.",
           description:
             "Click the button. If someone else clicked it, you will know.",
-          link: "/abc",
+          altDescription: "Is somebody waiting? Waiting for it to happen.",
+          link: "/button",
         },
         {
           title: "Chat Box",
+          currentText: "A chat box. Who knows what messages others will leave.",
           description: "A chat box. Who knows what messages others will leave.",
+          altDescription:
+            "Nobody knows who left the message. All they can see is the chat box.",
+          addingText: 0,
           link: "/chatbox",
         },
         {
           title: "Loneliness",
+          currentText: "Embrace loneliness",
           description: "Embrace loneliness",
+          altDescription: "Find solitude",
           link: "/loneliness",
         },
         {
           title: "Me",
+          currentText: "Click the link, you've found me",
           description: "Click the link, you've found me",
+          altDescription: "But who cares?",
           link: "/github",
         },
         {
           title: "Philosophy",
+          currentText:
+            "Find the path to philosophy, a known secret of Wikipedia.",
           description:
             "Find the path to philosophy, a known secret of Wikipedia.",
+          altDescription: "Maybe it's all connected",
           link: "/philosophy",
         },
         {
           title: "Translate",
+          currentText:
+            "Randomly translate a sentence 10 times. Let the machine do the work.",
           description:
             "Randomly translate a sentence 10 times. Let the machine do the work.",
+          altDescription:
+            "Some find it poetic, some find it dark. But it's just a machine.",
           link: "/translate",
         },
       ],
     };
+  },
+  methods: {
+    switchDescription(item, order) {
+      if (order == 1) {
+        item.currentText = item.altDescription;
+      } else {
+        item.currentText = item.description;
+      }
+    },
   },
 };
 </script>
