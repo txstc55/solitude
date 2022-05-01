@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-screen grid subpixel-antialiased overscroll-y-none"
+    class="h-screen grid subpixel-antialiased overscroll-y-none overflow-hidden"
     :style="{ padding: paddingTop + 'px 0px 0px 0px' }"
     @mousedown="this.mouseDownFunction"
     @mousemove="this.mouseMoveFunction"
