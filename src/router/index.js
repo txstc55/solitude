@@ -36,6 +36,11 @@ const routes = [
     component: () => import('../views/ABC.vue')
   },
   {
+    path: '/infinity',
+    name: 'infinity',
+    component: () => import('../views/Infinity.vue')
+  },
+  {
     path: '/translate',
     name: 'translate',
     component: () => import('../views/Translate.vue')
