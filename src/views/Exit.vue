@@ -1,10 +1,20 @@
 <template>
   <div
-    class="h-screen grid"
+    class="h-screen grid overflow-y-hidden overflow-x-hidden"
     @mousemove="getMouseMove"
     @mouseover="getMouseMove"
   >
-    <div class="relative m-auto grid">
+    <div
+      class="
+        absolute
+        m-auto
+        grid
+        left-1/2
+        -translate-x-1/2
+        top-1/2
+        -translate-y-1/2
+      "
+    >
       <div
         class="
           transform
