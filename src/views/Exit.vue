@@ -70,7 +70,6 @@
                   text-black
                 "
                 :style="{ transform: transformStyle[3] }"
-                @click="goHome"
               >
                 <p
                   class="
@@ -84,8 +83,15 @@
                     uppercase
                     noselect
                     text-black
+                    bg-white
+                    rounded-full
+                    -translate-y-0.5
+                    hover:bg-black hover:text-white
+                    transform
+                    duration-300
                   "
                   :style="{ 'line-height': '128px' }"
+                  @click="goHome"
                 >
                   H
                 </p>
