@@ -151,8 +151,14 @@ export default {
           description: "A chat box. Who knows what messages others will leave.",
           altDescription:
             "Nobody knows who left the message. All they can see is the chat box.",
-          addingText: 0,
           link: "/chatbox",
+        },
+        {
+          title: "Infinity",
+          currentText: "Infinity",
+          description: "Infinity",
+          altDescription: "∞",
+          link: "/infinity",
         },
         {
           title: "Loneliness",
