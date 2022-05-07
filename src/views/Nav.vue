@@ -184,6 +184,15 @@ export default {
           link: "/philosophy",
         },
         {
+          title: "Q&A",
+          currentText:
+            "Questions and answers.",
+          description:
+            "Questions and answers.",
+          altDescription: "I ask, I answer.",
+          link: "/qa",
+        },
+        {
           title: "Translate",
           currentText:
             "Randomly translate a sentence 10 times. Let the machine do the work.",

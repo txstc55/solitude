@@ -36,6 +36,11 @@ const routes = [
     component: () => import('../views/ABC.vue')
   },
   {
+    path: '/qa',
+    name: 'qa',
+    component: () => import('../views/Qanda.vue')
+  },
+  {
     path: '/infinity',
     name: 'infinity',
     component: () => import('../views/Infinity.vue')
