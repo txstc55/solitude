@@ -231,12 +231,11 @@ export default {
     },
     cardTransform(ind) {
       const gap = Math.floor(360 / this.qas.length);
-      // console.log("rotateY(" + gap * ind + "deg), translateZ(300px)")
       const d = Math.ceil(this.card_distance / Math.sin(gap * (180 / Math.PI)));
       return (
         "rotateY(" +
-        Math.floor((ind * 360) / this.qas.length) +
-        "deg) translateZ(" +
+        (ind * 360 * Math.PI) / 180 / this.qas.length +
+        "rad) translateZ(" +
         d +
         "px)"
       );
