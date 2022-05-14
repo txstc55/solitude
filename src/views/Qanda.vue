@@ -151,6 +151,11 @@ export default {
             "You can find my email easily. There has been a couple of people telling me they liked the website through email. I will be happy if you reached out and ask me some questions.",
         },
         {
+          question: "Do you collect any data?",
+          answer:
+            "LMAO NO. Every user input you see will be removed, either after a limit is reached (6 messages in chatbox), or doesn't get stored on server at all.",
+        },
+        {
           question: "Among all of them, which one is your favourite?",
           answer:
             "I would say it's the chatbox. It not only reflects the idea of this website, but is also hard to implement. The box is not rendered on a canvas or svg or webgl. It is just html elements.",
