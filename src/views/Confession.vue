@@ -2,7 +2,7 @@
   <div class="h-screen grid" v-show="exitPressed == '0'">
     <div
       class="relative mx-auto my-auto transform duration-200"
-      :style="{ tansform: pageTransform }"
+      :style="{ transform: pageTransform }"
     >
       <transition name="fade" mode="out-in">
         <div
@@ -357,9 +357,8 @@ export default {
     changeScaling() {
       this.windowScale = Math.max(
         0.1,
-        Math.min((window.innerWidth - 100) / 512, 1.0)
+        Math.min((window.innerWidth - 500) / 512, 1.0)
       );
-      console.log(this.windowScale);
     },
     setCookie(name, value, days) {
       var expires = "";
@@ -540,6 +539,8 @@ export default {
       }, this.confessionGapTimeInSeconds * 1000 - timeDifference);
     }
     this.changeLoadingDots();
+  },
+  crreated() {
     this.changeScaling();
     window.addEventListener("resize", this.changeScaling);
   },
