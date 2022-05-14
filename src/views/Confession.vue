@@ -139,7 +139,7 @@
           v-show="hearingConfession"
         >
           <p
-            class="top-0 bg-black/50 w-full py-3 px-2 text-2xl text-white"
+            class="top-0 bg-black/50 w-full py-3 px-2 text-2xl text-white noselect"
             :style="{ height: '500px', 'white-space': 'pre-line' }"
             v-show="!loadingConfession"
           >
