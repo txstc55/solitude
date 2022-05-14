@@ -321,6 +321,7 @@ export default {
         "I have a secret to share.",
         "I want to tell you a secret.",
       ],
+      confessionOpenerChoice: 0,
       loadingConfession: true,
       confessionGapTimeInSeconds: 600,
       loadingDots: "...",
@@ -408,7 +409,14 @@ export default {
 
     sendConfession() {
       if (this.confessionText.trim() == "") {
-        alert("You cannot send an empty confessiobn.");
+        alert("You cannot send an empty confession.");
+        return;
+      }
+      if (
+        this.confessionText.trim() ==
+        this.confessionOpeners[this.confessionOpenerChoice].trim()
+      ) {
+        alert("Please, say something, don't send the default text.");
         return;
       }
       var data = JSON.stringify({
@@ -449,10 +457,11 @@ export default {
       this.makingConfession = true;
       // we need to wait a bit for the textarea to show up
       if (this.confessionText.trim() == "") {
+        this.confessionOpenerChoice = Math.floor(
+          Math.random() * this.confessionOpeners.length
+        );
         this.confessionText =
-          this.confessionOpeners[
-            Math.floor(Math.random() * this.confessionOpeners.length)
-          ] + "\n\n";
+          this.confessionOpeners[this.confessionOpenerChoice] + "\n\n";
       }
       setTimeout(() => {
         document.getElementById("confessionTextArea").focus();
