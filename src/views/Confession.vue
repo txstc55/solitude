@@ -357,7 +357,7 @@ export default {
     changeScaling() {
       this.windowScale = Math.max(
         0.1,
-        Math.min((window.innerWidth - 150) / 512, 1.0)
+        Math.min((window.innerWidth - 100) / 512, 1.0)
       );
     },
     setCookie(name, value, days) {
