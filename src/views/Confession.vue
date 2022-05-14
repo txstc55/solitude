@@ -1,5 +1,8 @@
 <template>
-  <div class="h-screen grid w-full" v-show="exitPressed == '0'">
+  <div
+    class="h-screen grid w-full scale-50 sm:scale-75 md:scale-100"
+    v-show="exitPressed == '0'"
+  >
     <div class="relative mx-auto my-auto">
       <transition name="fade" mode="out-in">
         <div
