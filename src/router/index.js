@@ -61,6 +61,11 @@ const routes = [
     component: () => import('../views/ChatBox.vue')
   },
   {
+    path: '/confession',
+    name: 'confession',
+    component: () => import('../views/Confession.vue')
+  },
+  {
     path: '/github',
     beforeEnter() { location.href = 'http://txstc55.github.io' }
   }

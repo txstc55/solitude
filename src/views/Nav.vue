@@ -154,6 +154,14 @@ export default {
           link: "/chatbox",
         },
         {
+          title: "Confession",
+          currentText: "Why not make a confession?",
+          description: "Why not make a confession?",
+          altDescription:
+            "Tell strangers your sin.",
+          link: "/confession",
+        },
+        {
           title: "Infinity",
           currentText: "Infinity",
           description: "Infinity",
