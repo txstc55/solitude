@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="h-screen grid w-full scale-50 sm:scale-75 md:scale-100"
-    v-show="exitPressed == '0'"
-  >
+  <div class="h-screen grid" v-show="exitPressed == '0'">
     <div class="relative mx-auto my-auto">
       <transition name="fade" mode="out-in">
         <div
@@ -226,8 +223,8 @@
         >a confession
       </h5>
       <svg
+        class="block m-auto"
         viewBox="0 0 321.6375 283.0458"
-        xml:space="preserve"
         xmlns="http://www.w3.org/2000/svg"
         width="512.000000pt"
         height="449.000000pt"
