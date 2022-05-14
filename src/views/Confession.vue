@@ -183,6 +183,7 @@
               font-bold
             "
             @click="this.nextConfession()"
+            :disabled="!this.canSeeNextConfession"
           >
             NEXT
           </button>
@@ -378,6 +379,7 @@ export default {
       confessionGapTimeInSeconds: 600,
       loadingDots: "...",
       windowScale: 1,
+      canSeeNextConfession: true,
     };
   },
   computed: {
@@ -435,6 +437,7 @@ export default {
 
     nextConfession() {
       this.loadingConfession = true;
+      this.canSeeNextConfession = false;
       var config = {
         method: "get",
         url: "https://loneliness.one/api/confessions",
@@ -445,6 +448,9 @@ export default {
         .then(function (response) {
           self.receivedConfession = response.data.text;
           self.loadingConfession = false;
+          setTimeout(() => {
+            self.canSeeNextConfession = true;
+          }, 1100);
         })
         .catch(function (error) {
           if (error.response.status == 403) {
@@ -530,6 +536,7 @@ export default {
     },
     exitHearConfession() {
       this.hearingConfession = false;
+      this.canSeeNextConfession = true;
       this.changeChoiceText("....");
     },
 
