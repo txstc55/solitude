@@ -291,6 +291,58 @@
           />
         </g>
       </svg>
+      <div class="mt-10 w-full">
+        <button
+          class="
+            absolute
+            left-0
+            bot-0
+            w-1/3
+            border border-white
+            mx-auto
+            rounded-md
+            py-1
+            active:bg-gray-100
+            disabled:border-gray-500
+            text-white text-xl
+            font-mono
+            active:text-black
+            disabled:text-gray-500
+            font-bold
+          "
+          @mouseover="this.changeChoiceText('hear')"
+          @mouseout="this.changeChoiceText('....')"
+          @click="this.hearConfession()"
+          :disabled="makingConfession || hearingConfession"
+        >
+          HEAR
+        </button>
+        <button
+          class="
+            absolute
+            right-0
+            bot-0
+            w-1/3
+            border border-white
+            mx-auto
+            rounded-md
+            py-1
+            active:bg-gray-100
+            disabled:border-gray-500
+            text-white text-xl
+            font-mono
+            active:text-black
+            disabled:text-gray-500
+            font-bold
+          "
+          @mouseover="this.changeChoiceText('make')"
+          @mouseout="this.changeChoiceText('....')"
+          @click="this.makeConfession()"
+          :disabled="makingConfession || hearingConfession"
+        >
+          MAKE
+        </button>
+      </div>
     </div>
   </div>
 </template>
