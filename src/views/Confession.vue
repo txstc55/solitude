@@ -357,7 +357,7 @@ export default {
     changeScaling() {
       this.windowScale = Math.max(
         0.1,
-        Math.min((window.innerWidth - 500) / 512, 1.0)
+        Math.min((window.innerWidth - 200) / 512, 1.0)
       );
     },
     setCookie(name, value, days) {
@@ -539,10 +539,11 @@ export default {
       }, this.confessionGapTimeInSeconds * 1000 - timeDifference);
     }
     this.changeLoadingDots();
+    this.changeScaling();
+    window.addEventListener("resize", this.changeScaling);
   },
   crreated() {
     this.changeScaling();
-    window.addEventListener("resize", this.changeScaling);
   },
   destroyed() {
     window.removeEventListener("resize", this.changeScaling);
