@@ -1,6 +1,9 @@
 <template>
   <div class="h-screen grid" v-show="exitPressed == '0'">
-    <div class="relative mx-auto my-auto">
+    <div
+      class="relative mx-auto my-auto transform duration-200"
+      :style="{ tansform: pageTransform }"
+    >
       <transition name="fade" mode="out-in">
         <div
           class="
@@ -226,8 +229,8 @@
         class="block m-auto"
         viewBox="0 0 321.6375 283.0458"
         xmlns="http://www.w3.org/2000/svg"
-        width="512.000000pt"
-        height="449.000000pt"
+        :width="svgWidth"
+        :height="svgHeight"
       >
         <g
           stroke="#ffffff"
@@ -321,6 +324,7 @@ export default {
       loadingConfession: true,
       confessionGapTimeInSeconds: 600,
       loadingDots: "...",
+      windowScale: 1,
     };
   },
   computed: {
@@ -334,6 +338,15 @@ export default {
       }
       return "0"; // 0 for not pressed, 1 for pressed
     },
+    svgWidth() {
+      return Math.min(512, 512 * this.windowScale) + "pt";
+    },
+    svgHeight() {
+      return Math.min(449, 449 * this.windowScale) + "pt";
+    },
+    pageTransform() {
+      return "scale(" + this.windowScale + ", " + this.windowScale + ")";
+    },
   },
   watch: {
     choiceText() {
@@ -341,6 +354,13 @@ export default {
     },
   },
   methods: {
+    changeScaling() {
+      this.windowScale = Math.max(
+        0.1,
+        Math.min((window.innerWidth - 100) / 512, 1.0)
+      );
+      console.log(this.windowScale);
+    },
     setCookie(name, value, days) {
       var expires = "";
       if (days) {
@@ -520,11 +540,12 @@ export default {
       }, this.confessionGapTimeInSeconds * 1000 - timeDifference);
     }
     this.changeLoadingDots();
+    this.changeScaling();
+    window.addEventListener("resize", this.changeScaling);
   },
-  beforeRouteEnter() {
-    // set the color
+  destroyed() {
+    window.removeEventListener("resize", this.changeScaling);
   },
-  beforeRouteLeave() {},
 };
 </script>
 
