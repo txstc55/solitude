@@ -196,6 +196,11 @@ export default {
             "It was fun. I posted on reddit and got many good translations. Feel free to go on to reddit and simply search this website, and you will find the thread.",
         },
         {
+          question: "Are my confessions stored?",
+          answer:
+            "Every confession is deleted after 200 views. However, if you post racist comments, there is a chance you get banned.",
+        },
+        {
           question: "But after all, why?",
           answer: "I want others to have some ideas of what I felt constantly.",
         },
@@ -241,7 +246,7 @@ export default {
         "rotateY(" +
         (ind * 360 * Math.PI) / 180 / this.qas.length +
         "rad) translateZ(" +
-        d +
+        -d +
         "px)"
       );
     },
