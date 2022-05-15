@@ -454,7 +454,7 @@ export default {
         })
         .catch(function (error) {
           if (error.response.status == 403) {
-            alert("There is no confession available at this time");
+            alert("There is no new confession available at this time");
             self.exitHearConfession();
             return;
           } else {
