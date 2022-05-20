@@ -1,7 +1,9 @@
 <template>
   <div class="h-screen grid" v-show="exitPressed == '0'">
     <div class="relative m-auto">
-      <h2 class="font-mono text-8xl max-w-full mx-24" id="textbox">Hello</h2>
+      <h2 class="font-mono text-8xl max-w-full mx-24 noselect" id="textbox">
+        Hello
+      </h2>
       <audio
         data-key="65"
         id="pc"
