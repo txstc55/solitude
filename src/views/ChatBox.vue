@@ -203,7 +203,7 @@ export default {
         while (c.charAt(0) == " ") c = c.substring(1, c.length);
         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
       }
-      return '0';
+      return "0";
     },
     eraseCookie(name) {
       document.cookie =
@@ -451,7 +451,7 @@ export default {
     },
   },
   mounted() {
-    if (this.exitPressed == '1') {
+    if (this.exitPressed == "1") {
       router.push("/exit");
     }
     for (var i = 0; i < 6; i++) {
@@ -521,15 +521,5 @@ label {
   text-shadow: -5px -5px 0 #ffffff, 5px -5px 0 #ffffff, -5px 5px 0 #ffffff,
     5px 5px 0 #ffffff;
   overflow: hidden;
-}
-
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
 }
 </style>

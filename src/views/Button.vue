@@ -45,7 +45,7 @@
             font-bold
             text-2xl
             font-sans
-            group-active:text-black
+            group-active:text-black noselect
           "
           >Click Me</span
         >

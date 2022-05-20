@@ -11,6 +11,7 @@
           md:text-6xl md:after:w-4 md:after:h-16 md:after:ml-2
           lg:text-6xl lg:after:w-4 lg:after:h-16 lg:after:ml-2
           xl:text-9xl xl:after:w-6 xl:after:h-24 xl:after:ml-4
+          noselect
         "
       >
         {{ text }}

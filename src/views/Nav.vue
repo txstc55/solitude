@@ -109,6 +109,7 @@
               ease-in-out
               absolute
               bottom-3
+              noselect
             "
           >
             Link
@@ -157,8 +158,7 @@ export default {
           title: "Confession",
           currentText: "Why not make a confession?",
           description: "Why not make a confession?",
-          altDescription:
-            "Tell strangers your sin.",
+          altDescription: "Tell strangers your sin.",
           link: "/confession",
         },
         {
@@ -193,10 +193,8 @@ export default {
         },
         {
           title: "Q&A",
-          currentText:
-            "Questions and answers.",
-          description:
-            "Questions and answers.",
+          currentText: "Questions and answers.",
+          description: "Questions and answers.",
           altDescription: "I ask, I answer.",
           link: "/qa",
         },
@@ -249,15 +247,5 @@ export default {
 .hide-scroll {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-}
-
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
 }
 </style>

@@ -12,7 +12,8 @@
         z-50
         pt-2
         pb-3
-        fixed noselect
+        fixed
+        noselect
       "
       v-show="!exitPressedNow"
     >
@@ -132,7 +133,9 @@ body {
   opacity: 0;
   transform: scale(0.9);
 }
+</style>
 
+<style global>
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
